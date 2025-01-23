@@ -3,8 +3,6 @@
 import requests
 import os
 from dotenv import load_dotenv
-from openai import AzureOpenAI
-from prompt import generate_prompt
 from utils import read_rs_numbers_from_file
 from utils import save_answer_to_markdown
 from utils import make_azure_openai_client

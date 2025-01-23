@@ -66,7 +66,7 @@ def main():
 
     for rs in rs_numbers:
         print(f"Processing: {rs}")
-        run_aqe(rs, "ja")
+        run_aqe(rs, "en")
 
 if __name__ == "__main__":
     main()

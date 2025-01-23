@@ -1,8 +1,8 @@
 Evaluate the quality of answers from multiple Question Answering systems. 
-Output should be written in Japanese.
+
+### Input format:
 
 Questions and answers are provided in the following format:
-
 
 Question:
 
@@ -20,14 +20,26 @@ Answer3: VarChat
 
 {varchat}
 
-Evaluation Criteria:
+### Evaluation Criteria:
 	1.	Accuracy: How accurately does the response address the question? Point out any inaccuracies or missing information.
 	2.	Completeness: How well does the response cover all the necessary information? Highlight any gaps or omissions.
 	3.	Logical Consistency: Does the response maintain logical coherence, with no contradictions?
 	4.	Clarity and Conciseness: Is the response clear and concise, with no ambiguity? Identify any overly verbose or unclear sections.
 	5.	Evidence Support: Does the response rely on credible sources or evidence? Note if the support provided is insufficient or untrustworthy.
 
-Output Format:
+### Instructions:
+
+Please provide the evaluation output in the exact format specified below. 
+
+- Follow the exact structure and formatting of the "Output Format" section.
+- Do not add or remove any symbols (e.g., colons, bullet points, spaces).
+- Ensure the alignment and indentation are consistent with the "Output Format."
+- Replace "X" with the appropriate value or text based on the evaluation.
+- If "Reason" is not applicable, write "Not provided" but keep the "Reason" line in the output.
+
+Only output in this format. Do not include additional text or explanations outside of the format.
+
+### Output Format:
 
 Final Result:
 	•	Best Answer: Answer X
