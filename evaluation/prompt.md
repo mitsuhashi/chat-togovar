@@ -22,7 +22,7 @@ Answer3: VarChat
 
 ### Evaluation Criteria:
 	1.	Accuracy: How accurately does the response address the question? Point out any inaccuracies or missing information.
-	2.	Completeness: How well does the response cover all the necessary information? Highlight any gaps or omissions.
+	2.  Completeness: Does the response itself provide all the necessary information required to fully answer the question, rather than just pointing to potential sources? Highlight any gaps where specific details should have been provided.
 	3.	Logical Consistency: Does the response maintain logical coherence, with no contradictions?
 	4.	Clarity and Conciseness: Is the response clear and concise, with no ambiguity? Identify any overly verbose or unclear sections.
 	5.	Evidence Support: Does the response rely on credible sources or evidence? Note if the support provided is insufficient or untrustworthy.
@@ -36,54 +36,63 @@ Please provide the evaluation output in the exact format specified below.
 - Ensure the alignment and indentation are consistent with the "Output Format."
 - Replace "X" with the appropriate value or text based on the evaluation.
 - If "Reason" is not applicable, write "Not provided" but keep the "Reason" line in the output.
+- Reason should be written in Japanese.
 
 Only output in this format. Do not include additional text or explanations outside of the format.
 
 ### Output Format:
 
-Final Result:
-	•	Best Answer: Answer X
-	•	Total Score for Answer 1 ChatTogoVar : X/50
-	•	Total Score for Answer 2 GPT-4o : X/50
-	•	Total Score for Answer 3 VarChat : X/50
-	•	Reason:
+# Final Result
 
-Scores by Evaluation Criteria:
-	•	Answer ChatTogoVar
-	•	Accuracy Score: X/10
-	•	Reason:
-	•	Completeness Score: X/10
-	•	Reason:
-	•	Logical Consistency Score: X/10
-	•	Reason:
-	•	Clarity and Conciseness Score: X/10
-	•	Reason:
-	•	Evidence Support Score: X/10
-	•	Reason:
-	•	Total Score: X/50
+- Best Answer: X
+- Total Score for Answer 1 ChatTogoVar: X/50
+- Total Score for Answer 2 GPT-4o: X/50
+- Total Score for Answer 3 VarChat: X/50
+- Reason: X
 
-	•	Answer GPT-4o
-	•	Accuracy Score: X/10
-	•	Reason:
-	•	Completeness Score: X/10
-	•	Reason:
-	•	Logical Consistency Score: X/10
-	•	Reason:
-	•	Clarity and Conciseness Score: X/10
-	•	Reason:
-	•	Evidence Support Score: X/10
-	•	Reason:
-	•	Total Score: X/50
+---
 
-	•	Answer VarChat
-	•	Accuracy Score: X/10
-	•	Reason:
-	•	Completeness Score: X/10
-	•	Reason:
-	•	Logical Consistency Score: X/10
-	•	Reason:
-	•	Clarity and Conciseness Score: X/10
-	•	Reason:
-	•	Evidence Support Score: X/10
-	•	Reason:
-	•	Total Score: X/50
+## Scores by Evaluation Criteria
+
+### Answer ChatTogoVar
+- Accuracy Score: X/10
+  - Reason: X
+- Completeness Score: X/10
+  - Reason: X
+- Logical Consistency Score: X/10
+  - Reason: X
+- Clarity and Conciseness Score: X/10
+  - Reason: X
+- Evidence Support Score: X/10
+  - Reason: X
+- Total Score: X/50
+
+---
+
+### Answer GPT-4o
+- Accuracy Score: X/10
+  - Reason: X
+- Completeness Score: X/10
+  - Reason: X
+- Logical Consistency Score: X/10
+  - Reason: X
+- Clarity and Conciseness Score: X/10
+  - Reason: X
+- Evidence Support Score: X/10
+  - Reason: X
+- Total Score: X/50
+
+---
+
+### Answer VarChat
+- Accuracy Score: X/10
+  - Reason: X
+- Completeness Score: X/10
+  - Reason: X
+- Logical Consistency Score: X/10
+  - Reason: X
+- Clarity and Conciseness Score: X/10
+  - Reason: X
+- Evidence Support Score: X/10
+  - Reason: X
+- Total Score: X/50
