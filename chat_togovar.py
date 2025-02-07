@@ -68,6 +68,7 @@ def generate_prompt(json_data_str):
         "1-5. Consider GWAS results and mention phenotypes related to this variant.\n"
         "1-6. Include a link to the TogoVar page for this variant.\n"
         f"2. Please consider the result by searching with TogoVar API:```\n{json_data_str}\n```\n"
+        f"2-1. If no information is available from TogoVar API, the answer should be generated based on LLM.\n"
     )
     return instructions
 
@@ -93,7 +94,9 @@ def chat_togovar(variant_id):
 
     # プロンプトを作成
     prompt = generate_prompt(togovar_result)
-    question = f"Could you show me the allele frequency of {variant_id} in Japanese populations?\n"
+#    question = f"Could you show me the allele frequency of {variant_id} in Japanese populations?\n"
+#    question = f"How does the {variant_id} allele affect the structure and function of genes?\n"
+    question = f"How does the location of {variant_id} influence the clinical phenotype?"
 
     # Azure OpenAIにプロンプトを送信
     openai_response_content = query_azure_openai(client, prompt, question, deployment_name)

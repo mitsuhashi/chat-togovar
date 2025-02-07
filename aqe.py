@@ -49,7 +49,9 @@ def run_aqe(rs_number, language="en"):
     client = make_azure_openai_client(api_base, api_key, api_version)
 
     # プロンプトを作成
-    question = f"Could you show me the allele frequency of {rs_number} in Japanese populations?"
+    question = (
+        f"Could you show me the allele frequency of {rs_number} in Japanese populations?"
+    )
     prompt = generate_prompt(question, rs_number)
 
     # Azure OpenAIにプロンプトを送信
@@ -66,7 +68,7 @@ def main():
 
     for rs in rs_numbers:
         print(f"Processing: {rs}")
-        run_aqe(rs, "en")
+        run_aqe(rs, "ja")
 
 if __name__ == "__main__":
     main()

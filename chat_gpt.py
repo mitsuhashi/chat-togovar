@@ -55,9 +55,12 @@ def generate_prompt(variant_id):
     Returns:
         str: 生成されたプロンプト
     """
-    return (
-        f"Could you show me the allele frequency of {variant_id} in Japanese populations?\n"
-    )
+    question = f"Could you show me the allele frequency of {variant_id} in Japanese populations?\n"
+    question = f"How does the {variant_id} allele affect the structure and function of genes?\n"
+    question = f"How does the location of {variant_id} influence the clinical phenotype?"
+
+    return question
+
 
 def chat_gpt(variant_id):
     # 環境変数から設定を読み込む
