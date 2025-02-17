@@ -2,115 +2,84 @@
 
 import requests
 import os
+import json5
 from dotenv import load_dotenv
+from open_ai_azure import OpenAIAzure
 from utils import read_rs_numbers_from_file
 from utils import save_answer_to_markdown
-from utils import make_azure_openai_client
 
-# 環境変数をロード
-load_dotenv()
+class ChatTogoVar(OpenAIAzure):
+    def __init__(self):
+        super().__init__()
+    
+    def query_azure_openai(self, question_statement, rs):
+        prompt = self.generate_prompt(rs)
+        return super().query_azure_openai(prompt, question_statement)
 
-def search_togovar(api_url, variant_id):
-    """
-    TogoVar APIを使用して指定されたバリアントIDを検索し、結果を返します。
-    """
-    try:
-        response = requests.post(
-            f"{api_url}/search/variant",
-            json={"query": {"id": [variant_id]}},
-            headers={"Content-Type": "application/json", "Accept": "application/json"}
+    def search_togovar(self, rs):
+        """
+        TogoVar APIを使用して指定されたバリアントIDを検索し、結果を返します。
+        """
+        try:
+            response = requests.post(
+                "https://grch38.togovar.org/api/search/variant",
+                json={"query": {"id": [rs]}},
+                headers={"Content-Type": "application/json", "Accept": "application/json"}
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error in TogoVar API: {e}")
+            return None
+
+    def generate_prompt(self, rs):
+        """
+        プロンプトを生成する関数
+        """
+        # TogoVar APIから結果を取得
+        togovar_result = self.search_togovar(rs)
+        if not togovar_result:
+            print("Failed to get TogoVar result.")
+            return None
+
+        prompt = (
+            "1. Only provide information on the items from 1-1 to 1-6 if they are directly related to the question. "
+            "If no information is available, explicitly state that there is no information. Also, include a source URL for each answer.\n"
+            "1-1. Display link information such as the rs number, HGVS, gene name, and transcript name.\n"
+            "1-2. Discuss the relationship with diseases based on curated information (ClinVar) and predictions (AlphaMissense, SIFT, Polyphen).\n"
+            "1-3. Include the content of literature where this variant appears.\n"
+            "1-4. Compare allele frequencies between Japanese and non-Japanese populations and explain the differences among populations.\n"
+            "1-5. Consider GWAS results and mention phenotypes related to this variant.\n"
+            "1-6. Include a link to the TogoVar page for this variant.\n"
+            f"2. Please consider the result by searching with TogoVar API:```\n{togovar_result}\n```\n"
+            f"2-1. If no information is available from TogoVar API, the answer should be generated based on ChatGPT.\n"
         )
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"TogoVar APIエラー: {e}")
-        return None
-
-def query_azure_openai(client, prompt, question, deployment_name, max_tokens=8192, temperature=1.0):
-    """
-    Azure OpenAI APIを使用してプロンプトを送信し、応答を取得します。
-    """
-    try:
-        response = client.chat.completions.create(
-            model=deployment_name,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant specialized in genomics."},
-                {"role": "system", "content": prompt},
-                {"role": "user", "content": question}
-            ],
-            max_tokens=max_tokens,
-            temperature=temperature
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"Azure OpenAIエラー: {e}")
-        return None
-
-def generate_prompt(json_data_str):
-    """
-    プロンプトを生成する関数
-
-    Args:
-        variant_id (str): バリアントID (例: rs123456)
-        json_data_str (str): TogoVar APIの検索結果 (JSON文字列)
-
-    Returns:
-        str: 生成されたプロンプト
-    """
-
-    instructions = (
-        "1. Only provide information on the items from 1-1 to 1-6 if they are directly related to the question. "
-        "If no information is available, explicitly state that there is no information. Also, include a source URL for each answer.\n"
-        "1-1. Display link information such as the rs number, HGVS, gene name, and transcript name.\n"
-        "1-2. Discuss the relationship with diseases based on curated information (ClinVar) and predictions (AlphaMissense, SIFT, Polyphen).\n"
-        "1-3. Include the content of literature where this variant appears.\n"
-        "1-4. Compare allele frequencies between Japanese and non-Japanese populations and explain the differences among populations.\n"
-        "1-5. Consider GWAS results and mention phenotypes related to this variant.\n"
-        "1-6. Include a link to the TogoVar page for this variant.\n"
-        f"2. Please consider the result by searching with TogoVar API:```\n{json_data_str}\n```\n"
-        f"2-1. If no information is available from TogoVar API, the answer should be generated based on LLM.\n"
-    )
-    return instructions
-
-
-def chat_togovar(variant_id):
-    # 環境変数から設定を読み込む
-    api_base = os.getenv("api_base")
-    api_key = os.getenv("api_key")
-    api_version = os.getenv("api_version")
-    deployment_name = os.getenv("deployment_name")
-    chat_togovar_result_dir = os.getenv("CHAT_TOGOVCAR_RESULT_DIR")
-
-    togovar_api_url = "https://grch38.togovar.org/api"
-
-    # クライアントを作成
-    client = make_azure_openai_client(api_base, api_key, api_version)
-
-    # TogoVar APIから結果を取得
-    togovar_result = search_togovar(togovar_api_url, variant_id)
-    if not togovar_result:
-        print("TogoVar検索に失敗しました。")
-        return None
-
-    # プロンプトを作成
-    prompt = generate_prompt(togovar_result)
-#    question = f"Could you show me the allele frequency of {variant_id} in Japanese populations?\n"
-#    question = f"How does the {variant_id} allele affect the structure and function of genes?\n"
-    question = f"How does the location of {variant_id} influence the clinical phenotype?"
-
-    # Azure OpenAIにプロンプトを送信
-    openai_response_content = query_azure_openai(client, prompt, question, deployment_name)
-    if openai_response_content:
-        # Markdownファイルに保存
-        file_path = f"{chat_togovar_result_dir}/{variant_id}.md"
-        save_answer_to_markdown(file_path, openai_response_content)
+        return prompt
 
 def main():
+    QA_SYSTEM = "ChatTogoVar"
+
+    load_dotenv()
+    result_dir = os.getenv("CHAT_TOGOVAR_RESULT_DIR")
+
+    with open("questions.json", "r") as f:
+        questions = json5.load(f)
+
     rs_numbers = read_rs_numbers_from_file("pubtator3/rs.txt")
 
-    for rs in rs_numbers:
-        print(f"Processing: {rs}")
-        chat_togovar(rs)
+    # 質問ごとに処理を行う
+    for question_no, question_statement_template in questions.items():
+        for rs in rs_numbers:
+            question_statement = question_statement_template.format(rs=rs)
+            print(f"Processing: {question_statement}...")
+            chat_gpt = ChatTogoVar()
+            openai_response_content = chat_gpt.query_azure_openai(question_statement, rs)
+            if openai_response_content:
+                file_path = f"{result_dir}/{question_no}/{rs}.md"
+                save_answer_to_markdown(QA_SYSTEM, file_path, openai_response_content)
+                print(f"done.")
+            else:
+                print("No response from Azure OpenAI")
 
 if __name__ == "__main__":
     main()

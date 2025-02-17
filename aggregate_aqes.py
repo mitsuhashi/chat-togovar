@@ -2,42 +2,59 @@
 
 import os
 import re
+import json5
 import pandas as pd
+import openpyxl
 
 # ディレクトリのパス
-directory_path = "./evaluation/en/"  # 実際のファイルが保存されているパスに置き換えてください
+directory_path = "./evaluation/"  # 実際のファイルが保存されているパスに置き換えてください
 
 # 抽出したデータを格納するリスト
-extracted_data = []
+extracted_data = {}
 
 # 抽出する情報の正規表現パターン
 patterns = {
-    "Best Answer": r"Best Answer: (.+)",
-    "Answer 1 Score": r"Total Score for Answer 1 ChatTogoVar: (\d+)/\d+",
-    "Answer 2 Score": r"Total Score for Answer 2 GPT-4o: (\d+)/\d+",
-    "Answer 3 Score": r"Total Score for Answer 3 VarChat: (\d+)/\d+"
+    "BestAnswer" : r"Best Answer: (.+)",
+    "ChatTogoVar" : r"Total Score for ChatTogoVar: (\d+)/\d+",
+    "GPT-4o" : r"Total Score for GPT-4o: (\d+)/\d+",
+    "VarChat" : r"Total Score for VarChat: (\d+)/\d+",
+    "Reason_en" : r"- Reason:\n  - English: (.+)",
+    "Reason_ja" : r"- Reason:\n  - English: .+\n  - 日本語:? (.+)"
 }
 
 # ディレクトリ内のファイルを処理
-for filename in os.listdir(directory_path):
-    if filename.endswith(".md"):  # テキストファイルのみ処理
-        file_path = os.path.join(directory_path, filename)
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
-            file_data = {"Filename": filename}  # ファイル名を記録
-            for key, pattern in patterns.items():
-                match = re.search(pattern, content)
-                if match:
-                    file_data[key] = match.group(1)
-                else:
-                    file_data[key] = None  # 該当情報が見つからない場合はNone
-            extracted_data.append(file_data)
+with open("questions.json", "r") as f:
+    questions = json5.load(f)
 
 # 抽出データをDataFrameに変換
-df = pd.DataFrame(extracted_data)
+df = pd.DataFrame(columns = ["QuestionNumber", "Question", "Filename",
+                            "BestAnswer", "ChatTogoVar", "GPT-4o", "VarChat"])
 
-# 結果をTSVファイルに保存
-output_path = "./evaluation/aggregate_aqes.tsv"  # 保存先を指定
-df.to_csv(output_path, sep="\t", index=False)
+for question_no, question_statement_template in questions.items():
+    for filename in os.listdir(directory_path + "/" + question_no):
+        if filename.endswith(".md"):
+            rs = filename.replace(".md", "")
+            file_path = os.path.join(directory_path + "/" + question_no, filename)
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+                file_data = {"QuestionNumber": question_no,
+                            "Question": question_statement_template.format(rs=rs),
+                            "Filename": filename}
+                for key, pattern in patterns.items():
+                    match = re.search(pattern, content)
+                    if match:
+                        file_data[key] = match.group(1)
+                    else:
+                        file_data[key] = None  # 該当情報が見つからない場合はNone
+                print([file_data])
+                new_data = pd.DataFrame([file_data])
+                df = pd.concat([df, new_data], ignore_index=True)
 
-print(f"抽出結果が以下のTSVファイルに保存されました: {output_path}")
+# Excelに保存
+output_path = "./evaluation/aggregate_aqes.xlsx" 
+
+with pd.ExcelWriter(output_path) as writer:
+    for question_no, group in df.groupby("QuestionNumber"):  # "QuestionNumber" の値ごとにグループ化
+        group.to_excel(writer, sheet_name=question_no, index=False)  # Questionごとにシート作成
+
+print(f"{output_path} にデータを保存しました！")

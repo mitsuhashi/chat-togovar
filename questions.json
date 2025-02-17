@@ -1,0 +1,9 @@
+{
+    //"q1": "Could you show me the allele frequency of {rs} in Japanese populations?",
+    //"q2": "How does the location of {rs} influence the clinical phenotype?",
+    //"q3": "How does the {rs} allele affect the structure and function of genes?",
+    //"q4": "Summarize what you know about {rs}.",
+    "q5": "Tell me about variants that have similar effects to the {rs} variant."
+
+
+}
