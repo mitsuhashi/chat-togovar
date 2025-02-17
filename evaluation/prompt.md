@@ -36,19 +36,25 @@ Please provide the evaluation output in the exact format specified below.
 - Ensure the alignment and indentation are consistent with the "Output Format."
 - Replace "X" with the appropriate value or text based on the evaluation.
 - If "Reason" is not applicable, write "Not provided" but keep the "Reason" line in the output.
-- Reason should be written in Japanese.
+- Every reason should be written in both English and Japanese.
 
 Only output in this format. Do not include additional text or explanations outside of the format.
 
 ### Output Format:
 
-# Final Result
+## Question
+
+{question}
+
+## Final Result
 
 - Best Answer: X
-- Total Score for Answer 1 ChatTogoVar: X/50
-- Total Score for Answer 2 GPT-4o: X/50
-- Total Score for Answer 3 VarChat: X/50
-- Reason: X
+- Total Score for ChatTogoVar: X/50
+- Total Score for GPT-4o: X/50
+- Total Score for VarChat: X/50
+- Reason:
+  - English: X
+  - 日本語: X
 
 ---
 
@@ -56,43 +62,73 @@ Only output in this format. Do not include additional text or explanations outsi
 
 ### Answer ChatTogoVar
 - Accuracy Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Completeness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Logical Consistency Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Clarity and Conciseness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Evidence Support Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Total Score: X/50
 
 ---
 
 ### Answer GPT-4o
 - Accuracy Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Completeness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Logical Consistency Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Clarity and Conciseness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Evidence Support Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Total Score: X/50
 
 ---
 
 ### Answer VarChat
 - Accuracy Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Completeness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Logical Consistency Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Clarity and Conciseness Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Evidence Support Score: X/10
-  - Reason: X
+  - Reason: 
+    - English: X
+    - 日本語: X
 - Total Score: X/50
