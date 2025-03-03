@@ -22,7 +22,7 @@ class OpenAIAzure:
         """
         return self.client
 
-    def query_azure_openai(self, prompt, question, max_tokens=8192, temperature=1.0):
+    def query_azure_openai(self, prompt, question, max_tokens=8192, temperature=0.0):
         """
         Azure OpenAI APIを使用してプロンプトと質問を送信し、回答を取得します。
         """
