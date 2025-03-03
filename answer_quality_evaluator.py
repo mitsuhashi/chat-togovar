@@ -2,6 +2,7 @@
 
 import os
 import json5
+import requests
 from open_ai_azure import OpenAIAzure
 from dotenv import load_dotenv
 from utils import read_rs_numbers_from_file
@@ -17,6 +18,22 @@ class AnswerQualityEvaluator(OpenAIAzure):
         question_statement = ""
         return super().query_azure_openai(prompt, question_statement)
 
+    def search_togovar(self, rs):
+        """
+        TogoVar APIを使用して指定されたバリアントIDを検索し、結果を返します。
+        """
+        try:
+            response = requests.post(
+                "https://grch38.togovar.org/api/search/variant",
+                json={"query": {"id": [rs]}},
+                headers={"Content-Type": "application/json", "Accept": "application/json"}
+            )
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error in TogoVar API: {e}")
+            return None
+
     def generate_prompt(self, question_no, question, rs):
         """
         プロンプトを生成する関数
@@ -30,7 +47,9 @@ class AnswerQualityEvaluator(OpenAIAzure):
         with open(f"{evaluation_dir}/prompt.md", "r", encoding="utf-8") as file:
             prompt_template = file.read()
 
-        return prompt_template.format(chat_togovar=chat_togovar, chat_gpt=chat_gpt, varchat=varchat, question=question)
+        togovar_response = self.search_togovar(rs)
+
+        return prompt_template.format(chat_togovar=chat_togovar, chat_gpt=chat_gpt, varchat=varchat, question=question, togovar_api=togovar_response)
 
 def main():
     SYSTEM_NAME = "AnswerQualityEvaluator"
