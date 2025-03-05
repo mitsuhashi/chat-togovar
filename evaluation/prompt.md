@@ -25,8 +25,8 @@ Answer3: VarChat
 Gene symbols: {gene_symbols}
 
 ### Evaluation Criteria:
-	1.	Accuracy: How accurately does the response address the question? Point out any inaccuracies or missing information. Please refer to gene symbols at the 'Gold standard' above as the gold standard.
-	2.  Completeness: Does the response itself provide all the necessary information required to fully answer the question, rather than just pointing to potential sources? Highlight any gaps where specific details should have been provided.
+	1.	Accuracy: How accurately does the response address the question? Point out any inaccuracies or missing information. Please refer to the gene symbols in the 'Gold standard' above as the correct genes in which the variant mentioned in the question is located.
+	2.	Completeness: Does the response itself provide all the necessary information required to fully answer the question, rather than just pointing to potential sources? Highlight any gaps where specific details should have been provided.
 	3.	Logical Consistency: Does the response maintain logical coherence, with no contradictions?
 	4.	Clarity and Conciseness: Is the response clear and concise, with no ambiguity? Identify any overly verbose or unclear sections.
 	5.	Evidence Support: Does the response rely on credible sources or evidence? Note if the support provided is insufficient or untrustworthy.
