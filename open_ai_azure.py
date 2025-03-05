@@ -31,7 +31,6 @@ class OpenAIAzure:
             response = self.client.chat.completions.create(
                 model = deployment_name,
                 messages = [
-                    {"role": "system", "content": "You are a helpful assistant specialized in genomics."},
                     {"role": "system", "content": prompt},
                     {"role": "user", "content": question}
                 ],

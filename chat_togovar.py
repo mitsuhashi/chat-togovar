@@ -5,7 +5,7 @@ import os
 import json5
 from dotenv import load_dotenv
 from open_ai_azure import OpenAIAzure
-from utils import read_rs_numbers_from_file
+from utils import load_rs_gene_data
 from utils import save_answer_to_markdown
 
 class ChatTogoVar(OpenAIAzure):
@@ -36,25 +36,14 @@ class ChatTogoVar(OpenAIAzure):
         """
         プロンプトを生成する関数
         """
-        # TogoVar APIから結果を取得
-        togovar_result = self.search_togovar(rs)
-        if not togovar_result:
-            print("Failed to get TogoVar result.")
-            return None
+        # promptのテンプレートファイルファイルを読み込む
+        with open(os.getenv("CHAT_TOGOVAR_RESULT_DIR") + "/prompt.md", "r", encoding="utf-8") as file:
+            prompt_template = file.read()
 
-        prompt = (
-            "1. Only provide information on the items from 1-1 to 1-6 if they are directly related to the question. "
-            "If no information is available, explicitly state that there is no information. Also, include a source URL for each answer.\n"
-            "1-1. Display link information such as the rs number, HGVS, gene name, and transcript name.\n"
-            "1-2. Discuss the relationship with diseases based on curated information (ClinVar) and predictions (AlphaMissense, SIFT, Polyphen).\n"
-            "1-3. Include the content of literature where this variant appears.\n"
-            "1-4. Compare allele frequencies between Japanese and non-Japanese populations and explain the differences among populations.\n"
-            "1-5. Consider GWAS results and mention phenotypes related to this variant.\n"
-            "1-6. Include a link to the TogoVar page for this variant.\n"
-            f"2. Please consider the result by searching with TogoVar API:```\n{togovar_result}\n```\n"
-            f"2-1. If no information is available from TogoVar API, the answer should be generated based on ChatGPT.\n"
-        )
-        return prompt
+        # TogoVar APIを使用して、指定されたバリアントIDを検索する
+        togovar_response = self.search_togovar(rs)
+
+        return prompt_template.format(togovar_response=togovar_response)
 
 def main():
     QA_SYSTEM = "ChatTogoVar"
@@ -65,11 +54,12 @@ def main():
     with open("questions.json", "r") as f:
         questions = json5.load(f)
 
-    rs_numbers = read_rs_numbers_from_file("pubtator3/rs.txt")
+    rs_gene_list = load_rs_gene_data("pubtator3/rs.txt")
 
     # 質問ごとに処理を行う
     for question_no, question_statement_template in questions.items():
-        for rs in rs_numbers:
+        for entry in rs_gene_list:
+            rs = entry["rs_id"]
             question_statement = question_statement_template.format(rs=rs)
             print(f"Processing: {question_statement}...")
             chat_gpt = ChatTogoVar()
