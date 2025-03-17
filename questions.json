@@ -1,9 +1,4 @@
 {
-    "q16": "Is {rs} associated with any diseases or clinical conditions?"
-}
-
-/**
-{
     // 🧬 1. 基本情報
     "q1": "Tell me the basic information about {rs}.", // {rs} の基本情報を教えてください
     "q2": "What is the genomic location of {rs} in GRCh38 and GRCh37?", // {rs} のゲノム座標（GRCh38 / GRCh37 の位置）は？
@@ -50,4 +45,3 @@
     "q49": "Is {rs} included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?", // {rs} は gnomAD や 1000 Genomes などの集団ゲノムデータベースに含まれていますか？
     "q50": "What machine learning models have been used to predict the impact of {rs}?" // {rs} の影響を予測するために使用された機械学習モデルは？
 }
-**/
