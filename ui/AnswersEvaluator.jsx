@@ -3,8 +3,24 @@ import { Octokit } from '@octokit/rest';
 import { ScrollSync } from 'react-scroll-sync';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Input } from './components/ui/input';
+import { Button } from './components/ui/button';
+
+function base64ToUtf8(base64) {
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+function utf8ToBase64(utf8String) {
+  const bytes = new TextEncoder().encode(utf8String);
+  let binary = '';
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
 
 export default function AnswersEvaluator() {
   const [token, setToken] = useState('');
@@ -57,7 +73,7 @@ export default function AnswersEvaluator() {
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi', repo: 'chat-togovar', path
       });
-      return atob(data.content);
+      return base64ToUtf8(data.content);
     }));
     setFileContents(contents);
   };
@@ -83,7 +99,7 @@ export default function AnswersEvaluator() {
 
   const handleUpload = async () => {
     const jsonlContent = JSON.stringify({ ...filePairs[currentIndex], evaluation: form }) + '\n';
-    const base64Content = btoa(unescape(encodeURIComponent(jsonlContent)));
+    const base64Content = utf8ToBase64(jsonlContent);
     try {
       await octokit.repos.createOrUpdateFileContents({
         owner: 'mitsuhashi',
