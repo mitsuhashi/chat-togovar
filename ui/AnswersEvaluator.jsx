@@ -22,17 +22,24 @@ function utf8ToBase64(utf8String) {
   return btoa(binary);
 }
 
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 export default function AnswersEvaluator() {
   const [token, setToken] = useState('');
   const [filePairs, setFilePairs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fileContents, setFileContents] = useState(['', '', '']);
   const [message, setMessage] = useState('');
-  const [form, setForm] = useState({
-    chatTogoVar: {},
-    gpt4o: {},
-    varChat: {}
-  });
+  const [form, setForm] = useState({ A: {}, B: {}, C: {} });
+  const [shuffledLabels, setShuffledLabels] = useState([]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('gh_token');
@@ -77,14 +84,17 @@ export default function AnswersEvaluator() {
 
   const fetchFiles = async (pair) => {
     const paths = [
-      `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}`,
-      `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}`,
-      `answers/varchat/${pair.rsXXXX}`
+      { label: 'ChatTogoVar', path: `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}` },
+      { label: 'GPT-4o', path: `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}` },
+      { label: 'VarChat', path: `answers/varchat/${pair.rsXXXX}` },
     ];
 
-    const contents = await Promise.all(paths.map(async (path) => {
+    const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
+    setShuffledLabels(shuffled);
+
+    const contents = await Promise.all(shuffled.map(async (item) => {
       const { data } = await octokit.repos.getContent({
-        owner: 'mitsuhashi', repo: 'chat-togovar', path
+        owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path
       });
       return base64ToUtf8(data.content);
     }));
@@ -97,13 +107,13 @@ export default function AnswersEvaluator() {
     }
   }, [filePairs, currentIndex]);
 
-  const handleInputChange = (section, field, subfield, value) => {
+  const handleInputChange = (key, field, subfield, value) => {
     setForm((prev) => ({
       ...prev,
-      [section]: {
-        ...prev[section],
+      [key]: {
+        ...prev[key],
         [field]: {
-          ...prev[section][field],
+          ...prev[key][field],
           [subfield]: value
         }
       }
@@ -111,7 +121,11 @@ export default function AnswersEvaluator() {
   };
 
   const handleUpload = async () => {
-    const jsonlContent = JSON.stringify({ ...filePairs[currentIndex], evaluation: form }) + '\n';
+    const jsonlContent = JSON.stringify({
+      ...filePairs[currentIndex],
+      label_mapping: shuffledLabels.reduce((acc, item) => { acc[item.key] = item.label; return acc; }, {}),
+      evaluation: form
+    }) + '\n';
     const base64Content = utf8ToBase64(jsonlContent);
     try {
       await octokit.repos.createOrUpdateFileContents({
@@ -122,7 +136,7 @@ export default function AnswersEvaluator() {
         content: base64Content
       });
       setMessage('✅ Uploaded to GitHub!');
-      setForm({ chatTogoVar: {}, gpt4o: {}, varChat: {} });
+      setForm({ A: {}, B: {}, C: {} });
     } catch (error) {
       setMessage(`❌ Upload failed: ${error.message}`);
     }
@@ -139,53 +153,47 @@ export default function AnswersEvaluator() {
 
       <ScrollSync>
         <div className="space-y-6">
-          {fileContents.map((content, idx) => (
-            <div key={idx} className="border rounded-xl shadow p-4 bg-white space-y-2">
-              <h4 className="font-semibold text-lg">{['ChatTogoVar', 'GPT-4o', 'VarChat'][idx]}</h4>
-              <div className="h-[40vh] overflow-auto">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+          {['A', 'B', 'C'].map((key, idx) => (
+            <div key={key} className="border rounded-xl shadow p-4 bg-white flex gap-6">
+              <div className="w-2/3 h-[40vh] overflow-auto">
+                <h4 className="font-semibold text-lg">Answer {key}</h4>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
+              </div>
+              <div className="w-1/3 space-y-3">
+                {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
+                  <div key={field} className="space-y-1">
+                    <label className="block font-medium text-sm">{field} Score</label>
+                    <div className="flex flex-wrap gap-1">
+                      {Array.from({ length: 11 }, (_, i) => (
+                        <label key={i} className="flex items-center space-x-1 text-xs">
+                          <input
+                            type="radio"
+                            name={`${key}-${field}`}
+                            value={i}
+                            checked={form[key]?.[field]?.score === String(i)}
+                            onChange={(e) => handleInputChange(key, field, 'score', e.target.value)}
+                          />
+                          <span>{i}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <Input
+                      placeholder="Reason (English)"
+                      value={form[key]?.[field]?.reason_en || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
+                    />
+                    <Input
+                      placeholder="Reason (日本語)"
+                      value={form[key]?.[field]?.reason_ja || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </ScrollSync>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {['chatTogoVar', 'gpt4o', 'varChat'].map((section) => (
-          <div key={section} className="border p-4 rounded-xl bg-white shadow space-y-4">
-            <h3 className="font-bold text-lg">{section}</h3>
-            {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
-              <div key={field} className="space-y-1">
-                <label className="block font-medium">{field} Score</label>
-                <div className="flex flex-wrap gap-1">
-                  {Array.from({ length: 11 }, (_, i) => (
-                    <label key={i} className="flex items-center space-x-1 text-sm">
-                      <input
-                        type="radio"
-                        name={`${section}-${field}`}
-                        value={i}
-                        checked={form[section]?.[field]?.score === String(i)}
-                        onChange={(e) => handleInputChange(section, field, 'score', e.target.value)}
-                      />
-                      <span>{i}</span>
-                    </label>
-                  ))}
-                </div>
-                <label className="block">Reason (English)</label>
-                <Input
-                  value={form[section]?.[field]?.reason_en || ''}
-                  onChange={(e) => handleInputChange(section, field, 'reason_en', e.target.value)}
-                />
-                <label className="block">Reason (日本語)</label>
-                <Input
-                  value={form[section]?.[field]?.reason_ja || ''}
-                  onChange={(e) => handleInputChange(section, field, 'reason_ja', e.target.value)}
-                />
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
 
       <div className="space-y-2">
         <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
