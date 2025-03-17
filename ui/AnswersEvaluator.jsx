@@ -121,19 +121,30 @@ export default function AnswersEvaluator() {
   };
 
   const handleUpload = async () => {
+    const path = `evaluation/human/evaluation_${filePairs[currentIndex].qY}_${filePairs[currentIndex].rsXXXX.replace('.md', '')}.jsonl`;
+    let sha;
+    try {
+      const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
+      sha = data.sha;
+    } catch (err) {
+      if (err.status !== 404) throw err;
+    }
+
     const jsonlContent = JSON.stringify({
       ...filePairs[currentIndex],
       label_mapping: shuffledLabels.reduce((acc, item) => { acc[item.key] = item.label; return acc; }, {}),
       evaluation: form
     }) + '\n';
     const base64Content = utf8ToBase64(jsonlContent);
+
     try {
       await octokit.repos.createOrUpdateFileContents({
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
-        path: `evaluation/human/evaluation_${filePairs[currentIndex].qY}_${filePairs[currentIndex].rsXXXX.replace('.md', '')}.jsonl`,
+        path,
         message: 'Add evaluation data',
-        content: base64Content
+        content: base64Content,
+        sha: sha
       });
       setMessage('✅ Uploaded to GitHub!');
       setForm({ A: {}, B: {}, C: {} });
@@ -156,8 +167,10 @@ export default function AnswersEvaluator() {
           {['A', 'B', 'C'].map((key, idx) => (
             <div key={key} className="border rounded-xl shadow p-4 bg-white flex gap-6">
               <div className="w-2/3 h-[40vh] overflow-auto">
-                <h4 className="font-semibold text-lg">Answer {key}</h4>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
+                <h4 className="font-semibold text-lg mb-2">Answer {key}</h4>
+                <div className="prose prose-sm max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
+                </div>
               </div>
               <div className="w-1/3 space-y-3">
                 {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
@@ -192,13 +205,4 @@ export default function AnswersEvaluator() {
               </div>
             </div>
           ))}
-        </div>
-      </ScrollSync>
-
-      <div className="space-y-2">
-        <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
-        {message && <p>{message}</p>}
-      </div>
-    </div>
-  );
-}
+        </div
