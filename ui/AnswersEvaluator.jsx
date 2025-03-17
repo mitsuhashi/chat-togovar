@@ -129,34 +129,37 @@ export default function AnswersEvaluator() {
   };
 
   return (
-    <div className="p-4 space-y-4">
-      <div className="flex space-x-2">
+    <div className="p-4 space-y-6">
+      <div className="flex flex-wrap gap-2">
         <Input placeholder="GitHub Token" value={token} onChange={(e) => setToken(e.target.value)} type="password" />
         <Button onClick={fetchFilePairs}>Load pairs</Button>
         <Button disabled={currentIndex <= 0} onClick={() => setCurrentIndex(currentIndex - 1)}>Previous</Button>
         <Button disabled={currentIndex >= filePairs.length - 1} onClick={() => setCurrentIndex(currentIndex + 1)}>Next</Button>
       </div>
+
       <ScrollSync>
-        <div className="flex flex-col space-y-4">
+        <div className="space-y-6">
           {fileContents.map((content, idx) => (
-            <div key={idx} className="space-y-2">
-              <div className="h-[40vh] overflow-auto border p-2 bg-white">
+            <div key={idx} className="border rounded-xl shadow p-4 bg-white space-y-2">
+              <h4 className="font-semibold text-lg">{['ChatTogoVar', 'GPT-4o', 'VarChat'][idx]}</h4>
+              <div className="h-[40vh] overflow-auto">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
               </div>
             </div>
           ))}
         </div>
       </ScrollSync>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {['chatTogoVar', 'gpt4o', 'varChat'].map((section) => (
-          <div key={section} className="border p-4 rounded space-y-2">
+          <div key={section} className="border p-4 rounded-xl bg-white shadow space-y-4">
             <h3 className="font-bold text-lg">{section}</h3>
             {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
               <div key={field} className="space-y-1">
-                <label>{field} Score</label>
+                <label className="block font-medium">{field} Score</label>
                 <div className="flex flex-wrap gap-1">
                   {Array.from({ length: 11 }, (_, i) => (
-                    <label key={i} className="flex items-center space-x-1">
+                    <label key={i} className="flex items-center space-x-1 text-sm">
                       <input
                         type="radio"
                         name={`${section}-${field}`}
@@ -168,12 +171,12 @@ export default function AnswersEvaluator() {
                     </label>
                   ))}
                 </div>
-                <label>Reason (English)</label>
+                <label className="block">Reason (English)</label>
                 <Input
                   value={form[section]?.[field]?.reason_en || ''}
                   onChange={(e) => handleInputChange(section, field, 'reason_en', e.target.value)}
                 />
-                <label>Reason (日本語)</label>
+                <label className="block">Reason (日本語)</label>
                 <Input
                   value={form[section]?.[field]?.reason_ja || ''}
                   onChange={(e) => handleInputChange(section, field, 'reason_ja', e.target.value)}
@@ -183,6 +186,7 @@ export default function AnswersEvaluator() {
           </div>
         ))}
       </div>
+
       <div className="space-y-2">
         <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
         {message && <p>{message}</p>}
