@@ -34,6 +34,19 @@ export default function AnswersEvaluator() {
     varChat: {}
   });
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('gh_token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('gh_token', token);
+    }
+  }, [token]);
+
   const octokit = new Octokit({ auth: token });
 
   const fetchFilePairs = async () => {
@@ -124,10 +137,10 @@ export default function AnswersEvaluator() {
         <Button disabled={currentIndex >= filePairs.length - 1} onClick={() => setCurrentIndex(currentIndex + 1)}>Next</Button>
       </div>
       <ScrollSync>
-        <div className="flex space-x-4">
+        <div className="flex flex-col space-y-4">
           {fileContents.map((content, idx) => (
-            <div key={idx} className="w-1/3 space-y-2">
-              <div className="h-[70vh] overflow-auto border p-2 bg-white">
+            <div key={idx} className="space-y-2">
+              <div className="h-[40vh] overflow-auto border p-2 bg-white">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
               </div>
             </div>
@@ -140,14 +153,21 @@ export default function AnswersEvaluator() {
             <h3 className="font-bold text-lg">{section}</h3>
             {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
               <div key={field} className="space-y-1">
-                <label>{field} Score (/10)</label>
-                <Input
-                  type="number"
-                  min="0"
-                  max="10"
-                  value={form[section]?.[field]?.score || ''}
-                  onChange={(e) => handleInputChange(section, field, 'score', e.target.value)}
-                />
+                <label>{field} Score</label>
+                <div className="flex flex-wrap gap-1">
+                  {Array.from({ length: 11 }, (_, i) => (
+                    <label key={i} className="flex items-center space-x-1">
+                      <input
+                        type="radio"
+                        name={`${section}-${field}`}
+                        value={i}
+                        checked={form[section]?.[field]?.score === String(i)}
+                        onChange={(e) => handleInputChange(section, field, 'score', e.target.value)}
+                      />
+                      <span>{i}</span>
+                    </label>
+                  ))}
+                </div>
                 <label>Reason (English)</label>
                 <Input
                   value={form[section]?.[field]?.reason_en || ''}
