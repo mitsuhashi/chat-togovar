@@ -205,4 +205,13 @@ export default function AnswersEvaluator() {
               </div>
             </div>
           ))}
-        </div
+        </div>
+      </ScrollSync>
+
+      <div className="space-y-2">
+        <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
+        {message && <p>{message}</p>}
+      </div>
+    </div>
+  );
+}
