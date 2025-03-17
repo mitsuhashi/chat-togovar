@@ -5,7 +5,6 @@ import time
 import os
 import json
 from dotenv import load_dotenv
-from test_data import get_varchat_test_sample
 from utils import read_rs_numbers_from_file
 from utils import save_answer_to_markdown
 
@@ -44,21 +43,6 @@ def format_data(data):
     # 結果を出力
     return f"{json_line}\n{combined_text}"
 
-    # print("=== Answer ===")
-    # answer=parsed_json["answer"]
-    # print(answer)
-
-    # print("\n=== Citations ===")
-    # for citation in parsed_json.get("cits", []):
-    #     print(f"- {citation['cit']} (PMID: {citation['pmid']})")
-
-    # print("\n=== ClinVar Entries ===")
-    # for rcv in parsed_json.get("rcv_cits", []):
-    #     print(f"- {rcv['rcv']}: {rcv['condition']} (Link: {rcv['link']})")
-
-    # print("\n=== Additional Information ===")
-    # print(f"Citation Count: {parsed_json.get('cit_count', 'N/A')}")
-
 def varchat(rs_number):
     # 環境変数から設定を読み込む
     varchat_result_dir = os.getenv("VARCHAT_RESULT_DIR")
@@ -68,7 +52,7 @@ def varchat(rs_number):
 
     # Markdownファイルに保存
     if varchat_result:
-        save_answer_to_markdown(f"{varchat_result_dir}/{rs_number}.md", varchat_result)
+        save_answer_to_markdown(f"{varchat_result_dir}/original/{rs_number}.md", varchat_result)
     else:
         print(f"VarChat search failed for {rs_number}")
 

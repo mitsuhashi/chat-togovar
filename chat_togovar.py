@@ -46,8 +46,6 @@ class ChatTogoVar(OpenAIAzure):
         return prompt_template.format(togovar_response=togovar_response)
 
 def main():
-    QA_SYSTEM = "ChatTogoVar"
-
     load_dotenv()
     result_dir = os.getenv("CHAT_TOGOVAR_RESULT_DIR")
 
@@ -56,8 +54,11 @@ def main():
 
     rs_gene_list = load_rs_gene_data("pubtator3/rs.txt")
 
+    print(f"Processing {rs_gene_list}")
+
     # 質問ごとに処理を行う
     for question_no, question_statement_template in questions.items():
+        print(f"Processing question {question_no}...{question_statement_template}")
         for entry in rs_gene_list:
             rs = entry["rs_id"]
             question_statement = question_statement_template.format(rs=rs)
@@ -66,7 +67,7 @@ def main():
             openai_response_content = chat_gpt.query_azure_openai(question_statement, rs)
             if openai_response_content:
                 file_path = f"{result_dir}/{question_no}/{rs}.md"
-                save_answer_to_markdown(QA_SYSTEM, file_path, openai_response_content)
+                save_answer_to_markdown(file_path, openai_response_content)
                 print(f"done.")
             else:
                 print("No response from Azure OpenAI")
