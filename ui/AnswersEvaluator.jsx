@@ -116,10 +116,14 @@ export default function AnswersEvaluator() {
     setShuffledLabels(shuffled);
 
     const contents = await Promise.all(shuffled.map(async (item) => {
+      console.log('Fetching:', item.path);
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path
       });
       return base64ToUtf8(data.content);
+    } catch (err) {
+      console.error('Failed to fetch:', item.path, err.response?.data);
+      throw err;
     }));
     setFileContents(contents);
   };
