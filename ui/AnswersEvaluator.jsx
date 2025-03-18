@@ -187,7 +187,47 @@ export default function AnswersEvaluator() {
 
       <ScrollSync>
         <div className="space-y-6">
-          {/* Markdown display & scoring UI here */}
+          {['A', 'B', 'C'].map((key, idx) => (
+            <div key={key} className="border rounded-xl shadow p-4 bg-white flex gap-6">
+              <div className="w-2/3 h-[40vh] overflow-auto">
+                <h4 className="font-semibold text-lg mb-2">Answer {key}</h4>
+                <div className="prose prose-sm max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
+                </div>
+              </div>
+              <div className="w-1/3 space-y-3">
+                {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
+                  <div key={field} className="space-y-1">
+                    <label className="block font-medium text-sm">{field} Score</label>
+                    <div className="flex flex-wrap gap-1">
+                      {Array.from({ length: 11 }, (_, i) => (
+                        <label key={i} className="flex items-center space-x-1 text-xs">
+                          <input
+                            type="radio"
+                            name={`${key}-${field}`}
+                            value={i}
+                            checked={form[key]?.[field]?.score === String(i)}
+                            onChange={(e) => handleInputChange(key, field, 'score', e.target.value)}
+                          />
+                          <span>{i}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <Input
+                      placeholder="Reason (English)"
+                      value={form[key]?.[field]?.reason_en || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
+                    />
+                    <Input
+                      placeholder="Reason (日本語)"
+                      value={form[key]?.[field]?.reason_ja || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </ScrollSync>
 
