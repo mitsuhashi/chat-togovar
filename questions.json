@@ -1,47 +1,52 @@
 {
-    // 🧬 1. 基本情報
-    "q1": "Tell me the basic information about {rs}.", // {rs} の基本情報を教えてください
-    "q2": "What is the genomic location of {rs} in GRCh38 and GRCh37?", // {rs} のゲノム座標（GRCh38 / GRCh37 の位置）は？
-    "q3": "Which gene is associated with {rs}?", // {rs} に関連する遺伝子は？
-    "q4": "What is the reference allele and alternative allele of {rs}?", // {rs} の参照アレル（REF）と変異アレル（ALT）は？
-    "q5": "Is {rs} a single nucleotide variant (SNV), insertion, or deletion?", // {rs} は SNV ですか？ 挿入・欠失ですか？
-    "q6": "What is the minor allele frequency (MAF) of {rs}?", // {rs} のマイナーアレル頻度（MAF）は？
-    "q7": "Where can I find genomic data for {rs}?", // {rs} のゲノムデータはどこで見つけられますか？
-    "q8": "What is the Hardy-Weinberg equilibrium status of {rs} in various populations?", // {rs} の HWE（ハーディ・ワインベルク平衡）の状態は？
-
-    // 🧬 2. アレル頻度と集団分布
-    "q9": "Could you show me the allele frequency of {rs} in Japanese populations?", // {rs} の日本人集団におけるアレル頻度は？
-    "q10": "How does the allele frequency of {rs} compare across different populations?", // {rs} のアレル頻度は異なる集団間でどのように比較されますか？
-    "q11": "What is the allele frequency of {rs} in East Asian populations?", // {rs} の東アジア集団におけるアレル頻度は？
-    "q12": "What is the allele frequency of {rs} in European populations?", // {rs} のヨーロッパ人集団におけるアレル頻度は？
-    "q13": "What is the allele frequency of {rs} in African populations?", // {rs} のアフリカ人集団におけるアレル頻度は？
-
-    // 🧬 3. 臨床的意義
-    "q16": "Is {rs} associated with any diseases or clinical conditions?", // {rs} は疾患や臨床的状態と関連していますか？
-    "q17": "What is the clinical significance of {rs} in ClinVar?", // ClinVar での {rs} の臨床的意義は？
-    "q18": "How does the location of {rs} influence the clinical phenotype?", // {rs} の位置は臨床表現型にどのように影響しますか？
-    "q19": "Is {rs} listed in any GWAS studies?", // {rs} は GWAS 研究にリストされていますか？
-    
-    // 🧬 4. 薬理ゲノミクスと薬物代謝
-    "q24": "Does {rs} influence drug metabolism or response?", // {rs} は薬物代謝や薬物応答に影響を与えますか？
-    "q25": "What pharmacogenomic associations exist for {rs}?", // {rs} に関する薬理ゲノミクス関連は？
-
-    // 🧬 5. 機能的影響と分子メカニズム
-    "q29": "How does the {rs} allele affect the structure and function of genes?", // {rs} のアレルは遺伝子の構造と機能にどのような影響を与えますか？
-    "q30": "What molecular mechanisms are affected by {rs}?", // {rs} が影響を与える分子メカニズムは？
-    "q31": "How does {rs} affect transcript expression?", // {rs} は転写産物の発現にどのような影響を与えますか？
-
-    // 🧬 6. 進化的背景
-    "q36": "What is the evolutionary background of {rs}?", // {rs} の進化的背景は？
-    "q37": "What is the ancestral allele of {rs}?", // {rs} の祖先アレルは？
-
-    // 🧬 7. 関連バリアントとの比較
-    "q41": "Tell me about variants that have similar effects to the {rs} variant.", // {rs} と同様の影響を持つバリアントについて教えてください。
-    "q42": "Are there novel variants with similar effects to {rs}?", // {rs} と類似の影響を持つ新規バリアントはありますか？
-
-    // 🧬 8. データベース・バイオインフォマティクス解析
-    "q47": "What bioinformatics tools can analyze {rs}?", // {rs} を解析できるバイオインフォマティクスツールは？
-    "q48": "What datasets contain information on {rs}?", // {rs} に関する情報を含むデータセットは？
-    "q49": "Is {rs} included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?", // {rs} は gnomAD や 1000 Genomes などの集団ゲノムデータベースに含まれていますか？
-    "q50": "What machine learning models have been used to predict the impact of {rs}?" // {rs} の影響を予測するために使用された機械学習モデルは？
+    "q1": "Tell me the basic information about {rs}.",
+    "q2": "What is the genomic location of {rs} in GRCh38 and GRCh37?",
+    "q3": "Which gene is associated with {rs}?",
+    "q4": "What is the reference allele and alternative allele of {rs}?",
+    "q5": "Is {rs} a single nucleotide variant (SNV), insertion, or deletion?",
+    "q6": "What is the minor allele frequency (MAF) of {rs}?",
+    "q7": "Where can I find genomic data for {rs}?",
+    "q8": "What is the Hardy-Weinberg equilibrium status of {rs} in various populations?",
+    "q9": "Could you show me the allele frequency of {rs} in Japanese populations?",
+    "q10": "How does the allele frequency of {rs} compare across different populations?",
+    "q11": "What is the allele frequency of {rs} in East Asian populations?",
+    "q12": "What is the allele frequency of {rs} in European populations?",
+    "q13": "What is the allele frequency of {rs} in African populations?",
+    "q14": "Has {rs} undergone recent positive selection in any population?",
+    "q15": "Is there any evidence of natural selection acting on {rs}?",
+    "q16": "Is {rs} associated with any diseases or clinical conditions?",
+    "q17": "What is the clinical significance of {rs} in ClinVar?",
+    "q18": "How does the location of {rs} influence the clinical phenotype?",
+    "q19": "Is {rs} listed in any GWAS studies?",
+    "q20": "Does {rs} increase genetic risk for any diseases?",
+    "q21": "How does {rs} influence cancer risk?",
+    "q22": "What are the latest clinical findings about {rs}?",
+    "q23": "How does {rs} contribute to polygenic risk scores (PRS)?",
+    "q24": "Does {rs} influence drug metabolism or response?",
+    "q25": "What pharmacogenomic associations exist for {rs}?",
+    "q26": "How does {rs} affect the metabolism of alcohol or specific drugs?",
+    "q27": "Is {rs} included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "q28": "Can {rs} be used as a biomarker for drug response?",
+    "q29": "How does the {rs} allele affect the structure and function of genes?",
+    "q30": "What molecular mechanisms are affected by {rs}?",
+    "q31": "How does {rs} affect transcript expression?",
+    "q32": "What experimental evidence exists for {rs}’s functional impact?",
+    "q33": "How does {rs} affect splicing regulation?",
+    "q34": "Can {rs} be a target for genome editing (CRISPR)?",
+    "q35": "Is {rs} a dominant or recessive variant?",
+    "q36": "What is the evolutionary background of {rs}?",
+    "q37": "What is the ancestral allele of {rs}?",
+    "q38": "How does {rs} interact with environmental factors?",
+    "q39": "What are the effects of {rs} in cis-acting elements?",
+    "q40": "What selection pressures have acted on {rs} over time?",
+    "q41": "Tell me about variants that have similar effects to the {rs} variant.",
+    "q42": "Are there novel variants with similar effects to {rs}?",
+    "q43": "What haplotypes include {rs}?",
+    "q44": "How is {rs} different from other known variants in the same gene?",
+    "q45": "What other missense variants exist in the same gene as {rs}?",
+    "q46": "Are there any compensatory mutations that counteract the effect of {rs}?",
+    "q47": "What bioinformatics tools can analyze {rs}?",
+    "q48": "What datasets contain information on {rs}?",
+    "q49": "Is {rs} included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?",
+    "q50": "What machine learning models have been used to predict the impact of {rs}?"
 }
