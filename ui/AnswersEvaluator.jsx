@@ -82,6 +82,7 @@ export default function AnswersEvaluator() {
       });
     }
     setFilePairs(pairs);
+    console.log('Loaded file pairs:', pairs);
   };
 
   const fetchQuestion = async (qY, rs) => {
@@ -98,6 +99,9 @@ export default function AnswersEvaluator() {
   };
 
   const fetchFiles = async (pair) => {
+    setShuffledLabels([]);
+    setFileContents(['', '', '']);
+
     const paths = [
       { label: 'ChatTogoVar', path: `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}` },
       { label: 'GPT-4o', path: `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}` },
@@ -105,6 +109,7 @@ export default function AnswersEvaluator() {
     ];
 
     const rs = pair.rsXXXX.replace('.md', '');
+    await fetchQuestion(pair.qY, rs);
     await fetchQuestion(pair.qY, rs);
 
     const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
