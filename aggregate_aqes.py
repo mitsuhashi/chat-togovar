@@ -51,10 +51,20 @@ for question_no, question_statement_template in questions.items():
                 df = pd.concat([df, new_data], ignore_index=True)
 
 # Excelに保存
-output_path = "./evaluation/aggregate_aqes.xlsx" 
+output_path = f"{directory_path}/aggregate_aqes.xlsx"
 
 with pd.ExcelWriter(output_path) as writer:
     for question_no, group in df.groupby("QuestionNumber"):  # "QuestionNumber" の値ごとにグループ化
         group.to_excel(writer, sheet_name=question_no, index=False)  # Questionごとにシート作成
+
+# JSONに保存
+output_path_json = f"{directory_path}/aggregate_aqes.json"
+
+try:
+    # DataFrameを辞書形式に変換してJSONとして保存
+    df.to_json(output_path_json, orient="records", force_ascii=False, indent=4)
+    print(f"{output_path_json} にデータを保存しました！")
+except Exception as e:
+    print(f"JSON保存中にエラーが発生しました: {e}")
 
 print(f"{output_path} にデータを保存しました！")

@@ -115,17 +115,19 @@ export default function AnswersEvaluator() {
     const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
     setShuffledLabels(shuffled);
 
-    const contents = await Promise.all(shuffled.map(async (item) => {
+    try {
+      const contents = await Promise.all(shuffled.map(async (item) => {
       console.log('Fetching:', item.path);
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path
       });
       return base64ToUtf8(data.content);
+      }));
+      setFileContents(contents);
     } catch (err) {
-      console.error('Failed to fetch:', item.path, err.response?.data);
-      throw err;
-    }));
-    setFileContents(contents);
+      console.error('Failed to fetch file contents:', err.response?.data || err.message);
+      setMessage(`❌ Failed to fetch file contents: ${err.message}`);
+    }
   };
 
   useEffect(() => {

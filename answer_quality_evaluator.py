@@ -27,8 +27,8 @@ class AnswerQualityEvaluator(OpenAIAzure):
         varchat = get_file_content(os.getenv("VARCHAT_RESULT_DIR") + f"/{rs}.md")
 
         # promptのテンプレートファイルファイルを読み込む
-        evaluation_dir = os.getenv("EVALUATION_DIR")
-        with open(f"{evaluation_dir}/prompt.md", "r", encoding="utf-8") as file:
+        prompt_file = os.getenv("EVALUATION_DIR") + "/gpt-4o/prompt.md"
+        with open(prompt_file, "r", encoding="utf-8") as file:
             prompt_template = file.read()
 
         prompt = prompt_template.format(chat_togovar=chat_togovar, chat_gpt=chat_gpt, varchat=varchat, question=question, gene_symbols=gene_symbols)
@@ -58,8 +58,8 @@ def main():
             aqe = AnswerQualityEvaluator()
             openai_response_content = aqe.query_azure_openai(question_no, question_statement, rs, gene_symbols)
             if openai_response_content:
-                file_path = f"{evaluation_dir}/{question_no}/{rs}.md"
-                save_answer_to_markdown(SYSTEM_NAME, file_path, openai_response_content)
+                file_path = f"{evaluation_dir}/gpt-4o/{question_no}/{rs}.md"
+                save_answer_to_markdown(file_path, openai_response_content)
                 print("done.")
             else:
                 print("No response from Azure OpenAI")
