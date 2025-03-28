@@ -50,6 +50,8 @@ export default function AnswersEvaluator() {
     C: useRef(null),
   };
 
+  const octokit = new Octokit({ auth: token });
+
   const handleScroll = (sourceKey) => (e) => {
     const scrollTop = e.target.scrollTop;
     Object.keys(scrollRefs).forEach((key) => {
@@ -59,7 +61,6 @@ export default function AnswersEvaluator() {
     });
   };
 
-  const octokit = new Octokit({ auth: token });
   useEffect(() => {
     const storedToken = localStorage.getItem('gh_token');
     if (storedToken) setToken(storedToken);
@@ -68,19 +69,6 @@ export default function AnswersEvaluator() {
   useEffect(() => {
     if (token) localStorage.setItem('gh_token', token);
   }, [token]);
-
-  useEffect(() => {
-    if (filePairs.length > 0 && currentIndex < filePairs.length) {
-      const pair = filePairs[currentIndex];
-      const key = `${pair.qY}_${pair.rsXXXX.replace('.md', '')}`;
-      octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/evaluation/human/sampled_30_each.json')
-        .then(({ data }) => {
-          const list = JSON.parse(base64ToUtf8(data.content));
-          const index = list.findIndex(sample => `${sample.QuestionNumber}_${sample.rsid}` === key);
-          setSampleIndex(index);
-        });
-    }
-  }, [currentIndex, filePairs]);
 
   useEffect(() => {
     const saved = localStorage.getItem(`eval_${currentIndex}`);
@@ -98,27 +86,30 @@ export default function AnswersEvaluator() {
 
   useEffect(() => {
     if (filePairs.length > 0 && currentIndex < filePairs.length) {
+      setMessage(''); // ページ遷移時にメッセージをクリア
       fetchFiles(filePairs[currentIndex]);
     }
   }, [currentIndex, filePairs]);
-  
 
-const fetchFilePairs = async () => {
-  try {
-    const { data } = await octokit.repos.getContent({
-      owner: 'mitsuhashi',
-      repo: 'chat-togovar',
-      path: 'evaluation/human/sampled_30_each.json'
-    });
-    const content = base64ToUtf8(data.content);
-    const samples = JSON.parse(content);
-    const pairs = samples.map(({ QuestionNumber, rsid }) => ({ qY: QuestionNumber, rsXXXX: `${rsid}.md` }));
-    setFilePairs(pairs);
-    setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
-  } catch (err) {
-    setMessage(`❌ Failed to load sampled_30_each.json: ${err.message}`);
-  }
-};
+
+  const fetchFilePairs = async () => {
+    try {
+      const { data } = await octokit.repos.getContent({
+        owner: 'mitsuhashi',
+        repo: 'chat-togovar',
+        path: 'evaluation/human/sampled_30_each.json'
+      });
+      const content = base64ToUtf8(data.content);
+      const samples = JSON.parse(content);
+      const pairs = samples.map(({ QuestionNumber, rsid }) => ({ qY: QuestionNumber, rsXXXX: `${rsid}.md` }));
+      setFilePairs(pairs);
+      setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
+      console.log('Loaded pairs:', pairs);
+    } catch (err) {
+      setMessage(`❌ Failed to load sampled_30_each.json: ${err.message}`);
+      console.error('Error loading sampled_30_each.json', err);
+    }
+  };
 
   const fetchQuestion = async (qY, rs) => {
     const en = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
@@ -136,32 +127,40 @@ const fetchFilePairs = async () => {
   const fetchFiles = async (pair) => {
     setShuffledLabels([]);
     setFileContents(['', '', '']);
-  
+
     const rs = pair.rsXXXX.replace('.md', '');
-    await fetchQuestion(pair.qY, rs); // 質問を表示させるために呼び出しを復活
-  
+    await fetchQuestion(pair.qY, rs);
+
     const paths = [
       { label: 'ChatTogoVar', path: `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}` },
       { label: 'GPT-4o', path: `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}` },
       { label: 'VarChat', path: `answers/varchat/${pair.rsXXXX}` }
     ];
-  
+
     const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
     setShuffledLabels(shuffled);
-  
+
     const contents = await Promise.all(shuffled.map(async (item) => {
       try {
-        const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path });
+        const { data } = await octokit.repos.getContent({
+          owner: 'mitsuhashi',
+          repo: 'chat-togovar',
+          path: item.path
+        });
         return base64ToUtf8(data.content);
       } catch {
         return '(Content unavailable)';
       }
     }));
     setFileContents(contents);
-  
-    const path = `evaluation/human/evaluation_${sampleIndex}_${pair.qY}_${rs}.jsonl`;
+
+    const path = `evaluation/human/evaluation_${filePairs[currentIndex]?.qY}_${rs}.jsonl`;
     try {
-      const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
+      const { data } = await octokit.repos.getContent({
+        owner: 'mitsuhashi',
+        repo: 'chat-togovar',
+        path
+      });
       const record = JSON.parse(base64ToUtf8(data.content));
       if (record?.evaluation) setForm(record.evaluation);
     } catch {}
@@ -179,8 +178,10 @@ const fetchFilePairs = async () => {
       }
     }));
   };
+
   const handleUpload = async () => {
-    const path = `evaluation/human/evaluation_${sampleIndex}_${filePairs[currentIndex].qY}_${filePairs[currentIndex].rsXXXX.replace('.md', '')}.jsonl`;
+    const rs = filePairs[currentIndex].rsXXXX.replace('.md', '');
+    const path = `evaluation/human/evaluation_${filePairs[currentIndex].qY}_${rs}.jsonl`;
     let sha;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
@@ -194,6 +195,7 @@ const fetchFilePairs = async () => {
       evaluation: form
     }) + '\n';
     const base64Content = utf8ToBase64(jsonlContent);
+
     try {
       await octokit.repos.createOrUpdateFileContents({
         owner: 'mitsuhashi',
@@ -204,29 +206,27 @@ const fetchFilePairs = async () => {
         sha
       });
       setMessage('✅ Uploaded to GitHub!');
-      setForm({ A: {}, B: {}, C: {} });
     } catch (error) {
       setMessage(`❌ Upload failed: ${error.message}`);
     }
   };
 
   const handleDelete = async () => {
-    const path = `evaluation/human/evaluation_${sampleIndex}_${filePairs[currentIndex].qY}_${filePairs[currentIndex].rsXXXX.replace('.md', '')}.jsonl`;
+    const rs = filePairs[currentIndex].rsXXXX.replace('.md', '');
+    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
       await octokit.repos.deleteFile({
-        owner: 'mitsuhashi', repo: 'chat-togovar', path,
-        message: 'Delete evaluation data',
+        owner: 'mitsuhashi',
+        repo: 'chat-togovar',
+        path,
+        message: 'Delete evaluation',
         sha: data.sha
       });
       setMessage('🗑️ Deleted evaluation file');
       setForm({ A: {}, B: {}, C: {} });
-    } catch (err) {
-      if (err.status === 404) {
-        setMessage('⚠️ ファイルが存在しないため削除の必要はありません');
-      } else {
-        setMessage(`❌ Delete failed: ${err.message}`);
-      }
+    } catch (error) {
+      setMessage(`❌ Delete failed: ${error.message}`);
     }
   };
 
@@ -243,10 +243,16 @@ const fetchFilePairs = async () => {
         <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${((currentIndex + 1) / filePairs.length) * 100}%` }}></div>
       </div>
       <p className="text-sm text-gray-500">{currentIndex + 1} / {filePairs.length} 問</p>
-      {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
+
+      <div className="space-y-2">
+        <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
+        <Button variant="destructive" onClick={handleDelete}>Delete Evaluation JSONL</Button>
+        {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
+      </div>
 
       <div className="border p-4 bg-gray-50 rounded">
         <h2 className="font-bold">Question</h2>
+        <p><span className="text-sm text-gray-500">Index: {currentIndex + 1}</span></p>
         <p className="mb-1">{questionText}</p>
         <p className="text-gray-700 italic">{questionJa}</p>
       </div>
@@ -254,20 +260,14 @@ const fetchFilePairs = async () => {
       <div className="space-y-6">
         {['A', 'B', 'C'].map((key, idx) => (
           <div key={key} className="border rounded-xl shadow p-4 bg-white flex flex-col md:flex-row gap-6">
-            <div
-              className="w-full md:w-2/3 h-[40vh] overflow-auto"
-              ref={scrollRefs[key]}
-              onScroll={handleScroll(key)}
-            >
+            <div className="w-full md:w-2/3 h-[40vh] overflow-auto" ref={scrollRefs[key]} onScroll={handleScroll(key)}>
               <h4 className="font-semibold text-lg mb-2">Answer {key}</h4>
               <div className="prose prose-sm max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {fileContents[idx]}
-                </ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
               </div>
             </div>
             <div className="w-full md:w-1/3 space-y-3">
-              {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
+              {['Accuracy', 'Completeness', 'Logical Consistency', 'Clarity and Conciseness', 'Evidence Support'].map((field) => (
                 <div key={field} className="space-y-1">
                   <label className="block font-medium text-sm">{field} Score</label>
                   <div className="flex flex-wrap gap-1">
@@ -313,6 +313,7 @@ const fetchFilePairs = async () => {
       <div className="space-y-2">
         <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
         <Button variant="destructive" onClick={handleDelete}>Delete Evaluation JSONL</Button>
+        {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
       </div>
     </div>
   );
