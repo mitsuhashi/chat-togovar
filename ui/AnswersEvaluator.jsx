@@ -89,6 +89,7 @@ pairs = pairs.filter(pair => sampledSet.has(`${pair.qY}_${pair.rsXXXX.replace('.
 
 setFilePairs(pairs);
 console.log('Loaded file pairs:', pairs);
+setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
   };
 
   const fetchQuestion = async (qY, rs) => {
