@@ -96,20 +96,29 @@ export default function AnswersEvaluator() {
     localStorage.setItem(`eval_${currentIndex}`, JSON.stringify(form));
   }, [form, currentIndex]);
 
-  const fetchFilePairs = async () => {
-    const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path: 'answers/chat_togovar' });
-    let pairs = [];
-    for (const dir of data.filter(item => item.type === 'dir')) {
-      const { data: files } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path: `answers/chat_togovar/${dir.name}` });
-      files.forEach(file => {
-        if (file.name.endsWith('.md')) {
-          pairs.push({ qY: dir.name, rsXXXX: file.name });
-        }
-      });
+  useEffect(() => {
+    if (filePairs.length > 0 && currentIndex < filePairs.length) {
+      fetchFiles(filePairs[currentIndex]);
     }
+  }, [currentIndex, filePairs]);
+  
+
+const fetchFilePairs = async () => {
+  try {
+    const { data } = await octokit.repos.getContent({
+      owner: 'mitsuhashi',
+      repo: 'chat-togovar',
+      path: 'evaluation/human/sampled_30_each.json'
+    });
+    const content = base64ToUtf8(data.content);
+    const samples = JSON.parse(content);
+    const pairs = samples.map(({ QuestionNumber, rsid }) => ({ qY: QuestionNumber, rsXXXX: `${rsid}.md` }));
     setFilePairs(pairs);
     setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
-  };
+  } catch (err) {
+    setMessage(`❌ Failed to load sampled_30_each.json: ${err.message}`);
+  }
+};
 
   const fetchQuestion = async (qY, rs) => {
     const en = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
@@ -127,15 +136,19 @@ export default function AnswersEvaluator() {
   const fetchFiles = async (pair) => {
     setShuffledLabels([]);
     setFileContents(['', '', '']);
+  
+    const rs = pair.rsXXXX.replace('.md', '');
+    await fetchQuestion(pair.qY, rs); // 質問を表示させるために呼び出しを復活
+  
     const paths = [
       { label: 'ChatTogoVar', path: `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}` },
       { label: 'GPT-4o', path: `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}` },
       { label: 'VarChat', path: `answers/varchat/${pair.rsXXXX}` }
     ];
-    const rs = pair.rsXXXX.replace('.md', '');
-    await fetchQuestion(pair.qY, rs);
+  
     const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
     setShuffledLabels(shuffled);
+  
     const contents = await Promise.all(shuffled.map(async (item) => {
       try {
         const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path });
@@ -145,7 +158,7 @@ export default function AnswersEvaluator() {
       }
     }));
     setFileContents(contents);
-
+  
     const path = `evaluation/human/evaluation_${sampleIndex}_${pair.qY}_${rs}.jsonl`;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
@@ -234,7 +247,6 @@ export default function AnswersEvaluator() {
 
       <div className="border p-4 bg-gray-50 rounded">
         <h2 className="font-bold">Question</h2>
-        <p><span className="text-sm text-gray-500">Index: {sampleIndex}</span></p>
         <p className="mb-1">{questionText}</p>
         <p className="text-gray-700 italic">{questionJa}</p>
       </div>
