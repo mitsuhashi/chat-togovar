@@ -81,49 +81,28 @@ export default function AnswersEvaluator() {
         }
       });
     }
+
     const sampledRs = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/evaluation/human/sampled_30_each.json');
-const sampledList = JSON.parse(base64ToUtf8(sampledRs.data.content));
+    const sampledList = JSON.parse(base64ToUtf8(sampledRs.data.content));
+    const sampledSet = new Set(sampledList.map(sample => `${sample.QuestionNumber}_${sample.rsid}`));
 
-const sampledSet = new Set(sampledList.map(sample => `${sample.q}_${sample.rs}`));
-pairs = pairs.filter(pair => sampledSet.has(`${pair.qY}_${pair.rsXXXX.replace('.md', '')}`));
+    pairs = pairs.filter(pair => sampledSet.has(`${pair.qY}_${pair.rsXXXX.replace('.md', '')}`));
 
-setFilePairs(pairs);
-console.log('Loaded file pairs:', pairs);
-setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
+    setFilePairs(pairs);
+    console.log('Loaded file pairs:', pairs);
+    setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
   };
 
   const fetchQuestion = async (qY, rs) => {
-    try {
-      // Fetch English questions
-      const { data: enData } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
-      const enContent = base64ToUtf8(enData.content);
-      const enQuestions = JSON5.parse(enContent);
-
-      // Fetch Japanese questions
-      const { data: jaData } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions_ja.json');
-      const jaContent = base64ToUtf8(jaData.content);
-      const jaQuestions = JSON5.parse(jaContent);
-
-      const qKey = qY;
-
-      // Format and set English question
-      if (enQuestions[qKey]) {
-        const formattedEn = enQuestions[qKey].replace('{rs}', rs);
-        setQuestionText((prev) => `${prev}\n\nEnglish: ${formattedEn}`);
-      } else {
-        setQuestionText((prev) => `${prev}\n\nEnglish: Question template not found`);
-      }
-
-      // Format and set Japanese question
-      if (jaQuestions[qKey]) {
-        const formattedJa = jaQuestions[qKey].replace('{rs}', rs);
-        setQuestionText((prev) => `${prev}\n\n日本語: ${formattedJa}`);
-      } else {
-        setQuestionText((prev) => `${prev}\n\n日本語: 質問テンプレートが見つかりません`);
-      }
-    } catch (error) {
-      console.error('Failed to fetch questions:', error.message);
-      setQuestionText('❌ Failed to fetch questions');
+    const { data } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
+    const content = base64ToUtf8(data.content);
+    const questions = JSON5.parse(content);
+    const qKey = qY;
+    if (questions[qKey]) {
+      const formatted = questions[qKey].replace('{rs}', rs);
+      setQuestionText(formatted);
+    } else {
+      setQuestionText('Question template not found');
     }
   };
 
@@ -139,24 +118,26 @@ setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
 
     const rs = pair.rsXXXX.replace('.md', '');
     await fetchQuestion(pair.qY, rs);
-    await fetchQuestion(pair.qY, rs);
 
     const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
     setShuffledLabels(shuffled);
 
-    try {
-      const contents = await Promise.all(shuffled.map(async (item) => {
+    const contents = await Promise.all(shuffled.map(async (item) => {
       console.log('Fetching:', item.path);
-      const { data } = await octokit.repos.getContent({
-        owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path
-      });
-      return base64ToUtf8(data.content);
-      }));
-      setFileContents(contents);
-    } catch (err) {
-      console.error('Failed to fetch file contents:', err.response?.data || err.message);
-      setMessage(`❌ Failed to fetch file contents: ${err.message}`);
-    }
+      try {
+        const { data } = await octokit.repos.getContent({
+          owner: 'mitsuhashi', repo: 'chat-togovar', path: item.path
+        });
+        return base64ToUtf8(data.content);
+      } catch (err) {
+        console.error('Failed to fetch:', item.path, err.response?.data);
+        if (item.label === 'VarChat' && err.status === 404) {
+          return '(VarChat answer missing)';
+        }
+        throw err;
+      }
+    }));
+    setFileContents(contents);
   };
 
   useEffect(() => {
@@ -219,6 +200,7 @@ setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
         <Button disabled={currentIndex <= 0} onClick={() => setCurrentIndex(currentIndex - 1)}>Previous</Button>
         <Button disabled={currentIndex >= filePairs.length - 1} onClick={() => setCurrentIndex(currentIndex + 1)}>Next</Button>
       </div>
+      {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
 
       <div className="border p-4 bg-gray-50 rounded">
         <h2 className="font-bold">Question</h2>
@@ -254,19 +236,19 @@ setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
                       ))}
                     </div>
                     <textarea
-  placeholder="Reason (English)"
-  className="w-full border rounded p-2 resize-x"
-  rows={3}
-  value={form[key]?.[field]?.reason_en || ''}
-  onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
-/>
+                      placeholder="Reason (English)"
+                      className="w-full border rounded p-2 resize-x"
+                      rows={3}
+                      value={form[key]?.[field]?.reason_en || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
+                    />
                     <textarea
-  placeholder="Reason (日本語)"
-  className="w-full border rounded p-2 resize-x"
-  rows={3}
-  value={form[key]?.[field]?.reason_ja || ''}
-  onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
-/>
+                      placeholder="Reason (日本語)"
+                      className="w-full border rounded p-2 resize-x"
+                      rows={3}
+                      value={form[key]?.[field]?.reason_ja || ''}
+                      onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
+                    />
                   </div>
                 ))}
               </div>
@@ -277,7 +259,6 @@ setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
 
       <div className="space-y-2">
         <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
-        {message && <p>{message}</p>}
       </div>
     </div>
   );

@@ -1,494 +1,576 @@
 [
   {
-    "QuestionNumber": "q29",
-    "Question_en": "How does the rs431905511 allele affect the structure and function of genes?",
-    "Question_ja": "{rs} のアレルは遺伝子の構造や機能にどのような影響を与えますか？",
-    "rsid": "rs431905511"
-  },
-  {
-    "QuestionNumber": "q26",
-    "Question_en": "How does rs727504136 affect the metabolism of alcohol or specific drugs?",
-    "Question_ja": "{rs} はアルコールや特定の薬物の代謝にどのような影響を与えますか？",
-    "rsid": "rs727504136"
-  },
-  {
-    "QuestionNumber": "q37",
-    "Question_en": "What is the ancestral allele of rs431905511?",
-    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
-    "rsid": "rs431905511"
-  },
-  {
-    "QuestionNumber": "q16",
-    "Question_en": "Is rs1170153450 associated with any diseases or clinical conditions?",
-    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
-    "rsid": "rs1170153450"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs587782044’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs587782044"
-  },
-  {
-    "QuestionNumber": "q40",
-    "Question_en": "What selection pressures have acted on rs796053166 over time?",
-    "Question_ja": "{rs} に対して時代を通じてどのような選択圧が働いてきましたか？",
-    "rsid": "rs796053166"
-  },
-  {
-    "QuestionNumber": "q3",
-    "Question_en": "Which gene is associated with rs431905511?",
-    "Question_ja": "{rs} に関連する遺伝子はどれですか？",
-    "rsid": "rs431905511"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs886042528 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs886042528"
-  },
-  {
-    "QuestionNumber": "q48",
-    "Question_en": "What datasets contain information on rs1201448391?",
-    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
-    "rsid": "rs1201448391"
-  },
-  {
-    "QuestionNumber": "q18",
-    "Question_en": "How does the location of rs796053216 influence the clinical phenotype?",
-    "Question_ja": "{rs} の位置はどのように臨床表現型に影響しますか？",
-    "rsid": "rs796053216"
-  },
-  {
+    "Index": 1,
     "QuestionNumber": "q6",
-    "Question_en": "What is the minor allele frequency (MAF) of rs1489788269?",
+    "Question_en": "What is the minor allele frequency (MAF) of rs121913279?",
     "Question_ja": "{rs} のマイナーアレル頻度（MAF）はどれくらいですか？",
-    "rsid": "rs1489788269"
-  },
-  {
-    "QuestionNumber": "q10",
-    "Question_en": "How does the allele frequency of rs745774658 compare across different populations?",
-    "Question_ja": "異なる集団間での {rs} のアレル頻度の比較を教えてください。",
-    "rsid": "rs745774658"
-  },
-  {
-    "QuestionNumber": "q8",
-    "Question_en": "What is the Hardy-Weinberg equilibrium status of rs80356821 in various populations?",
-    "Question_ja": "さまざまな集団における {rs} のハーディ・ワインベルグ平衡の状態はどうなっていますか？",
-    "rsid": "rs80356821"
-  },
-  {
-    "QuestionNumber": "q48",
-    "Question_en": "What datasets contain information on rs796053166?",
-    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
-    "rsid": "rs796053166"
-  },
-  {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs121913529 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs121913529"
-  },
-  {
-    "QuestionNumber": "q37",
-    "Question_en": "What is the ancestral allele of rs587782044?",
-    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
-    "rsid": "rs587782044"
-  },
-  {
-    "QuestionNumber": "q29",
-    "Question_en": "How does the rs704341 allele affect the structure and function of genes?",
-    "Question_ja": "{rs} のアレルは遺伝子の構造や機能にどのような影響を与えますか？",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q36",
-    "Question_en": "What is the evolutionary background of rs876660744?",
-    "Question_ja": "{rs} の進化的背景を教えてください。",
-    "rsid": "rs876660744"
-  },
-  {
-    "QuestionNumber": "q6",
-    "Question_en": "What is the minor allele frequency (MAF) of rs763684724?",
-    "Question_ja": "{rs} のマイナーアレル頻度（MAF）はどれくらいですか？",
-    "rsid": "rs763684724"
-  },
-  {
-    "QuestionNumber": "q24",
-    "Question_en": "Does rs80356821 influence drug metabolism or response?",
-    "Question_ja": "{rs} は薬物代謝や薬剤応答に影響しますか？",
-    "rsid": "rs80356821"
-  },
-  {
-    "QuestionNumber": "q2",
-    "Question_en": "What is the genomic location of rs762927460 in GRCh38 and GRCh37?",
-    "Question_ja": "{rs} のGRCh38およびGRCh37におけるゲノム上の位置はどこですか？",
-    "rsid": "rs762927460"
-  },
-  {
-    "QuestionNumber": "q39",
-    "Question_en": "What are the effects of rs80356821 in cis-acting elements?",
-    "Question_ja": "{rs} はシス作用エレメント（cis-acting elements）にどのような影響を与えますか？",
-    "rsid": "rs80356821"
-  },
-  {
-    "QuestionNumber": "q41",
-    "Question_en": "Tell me about variants that have similar effects to the rs704341 variant.",
-    "Question_ja": "{rs} と同様の影響を持つ他のバリアントについて教えてください。",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs587782044?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs587782044"
-  },
-  {
-    "QuestionNumber": "q14",
-    "Question_en": "Has rs571414497 undergone recent positive selection in any population?",
-    "Question_ja": "{rs} は最近、どこかの集団で正の自然選択を受けていますか？",
-    "rsid": "rs571414497"
-  },
-  {
-    "QuestionNumber": "q36",
-    "Question_en": "What is the evolutionary background of rs431905511?",
-    "Question_ja": "{rs} の進化的背景を教えてください。",
-    "rsid": "rs431905511"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs880315?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs571414497?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs571414497"
-  },
-  {
-    "QuestionNumber": "q49",
-    "Question_en": "Is rs880315 included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?",
-    "Question_ja": "{rs} は gnomAD や 1000 Genomes のような集団ゲノムデータベースに含まれていますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q38",
-    "Question_en": "How does rs1201448391 interact with environmental factors?",
-    "Question_ja": "{rs} は環境因子とどのように相互作用しますか？",
-    "rsid": "rs1201448391"
-  },
-  {
-    "QuestionNumber": "q5",
-    "Question_en": "Is rs762927460 a single nucleotide variant (SNV), insertion, or deletion?",
-    "Question_ja": "{rs} は一塩基多型（SNV）、挿入、または欠失のどれですか？",
-    "rsid": "rs762927460"
-  },
-  {
-    "QuestionNumber": "q13",
-    "Question_en": "What is the allele frequency of rs886042528 in African populations?",
-    "Question_ja": "アフリカ人集団における {rs} のアレル頻度はどれくらいですか？",
-    "rsid": "rs886042528"
-  },
-  {
-    "QuestionNumber": "q4",
-    "Question_en": "What is the reference allele and alternative allele of rs34637584?",
-    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
-    "rsid": "rs34637584"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs1208662086?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs1208662086"
-  },
-  {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs1208662086 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs1208662086"
-  },
-  {
-    "QuestionNumber": "q14",
-    "Question_en": "Has rs704341 undergone recent positive selection in any population?",
-    "Question_ja": "{rs} は最近、どこかの集団で正の自然選択を受けていますか？",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs763684724 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs763684724"
-  },
-  {
-    "QuestionNumber": "q50",
-    "Question_en": "What machine learning models have been used to predict the impact of rs794726784?",
-    "Question_ja": "{rs} の影響を予測するために使用された機械学習モデルにはどのようなものがありますか？",
-    "rsid": "rs794726784"
-  },
-  {
-    "QuestionNumber": "q50",
-    "Question_en": "What machine learning models have been used to predict the impact of rs880315?",
-    "Question_ja": "{rs} の影響を予測するために使用された機械学習モデルにはどのようなものがありますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q48",
-    "Question_en": "What datasets contain information on rs80356821?",
-    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
-    "rsid": "rs80356821"
-  },
-  {
-    "QuestionNumber": "q24",
-    "Question_en": "Does rs121913529 influence drug metabolism or response?",
-    "Question_ja": "{rs} は薬物代謝や薬剤応答に影響しますか？",
-    "rsid": "rs121913529"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs880315 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs1170153450?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs1170153450"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs763684724?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs763684724"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs113488022 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs113488022"
-  },
-  {
-    "QuestionNumber": "q37",
-    "Question_en": "What is the ancestral allele of rs12037987?",
-    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
-    "rsid": "rs12037987"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs762927460 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs762927460"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs745774658 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs745774658"
-  },
-  {
-    "QuestionNumber": "q39",
-    "Question_en": "What are the effects of rs1057519999 in cis-acting elements?",
-    "Question_ja": "{rs} はシス作用エレメント（cis-acting elements）にどのような影響を与えますか？",
-    "rsid": "rs1057519999"
-  },
-  {
-    "QuestionNumber": "q33",
-    "Question_en": "How does rs796053216 affect splicing regulation?",
-    "Question_ja": "{rs} はスプライシング調節にどのように影響しますか？",
-    "rsid": "rs796053216"
-  },
-  {
-    "QuestionNumber": "q26",
-    "Question_en": "How does rs121913279 affect the metabolism of alcohol or specific drugs?",
-    "Question_ja": "{rs} はアルコールや特定の薬物の代謝にどのような影響を与えますか？",
     "rsid": "rs121913279"
   },
   {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs886042528 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs886042528"
-  },
-  {
-    "QuestionNumber": "q26",
-    "Question_en": "How does rs796052984 affect the metabolism of alcohol or specific drugs?",
-    "Question_ja": "{rs} はアルコールや特定の薬物の代謝にどのような影響を与えますか？",
-    "rsid": "rs796052984"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs796053166 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs796053166"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs1489788269 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs1489788269"
-  },
-  {
-    "QuestionNumber": "q43",
-    "Question_en": "What haplotypes include rs762927460?",
-    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
-    "rsid": "rs762927460"
-  },
-  {
-    "QuestionNumber": "q48",
-    "Question_en": "What datasets contain information on rs431905511?",
-    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
-    "rsid": "rs431905511"
-  },
-  {
-    "QuestionNumber": "q4",
-    "Question_en": "What is the reference allele and alternative allele of rs121918719?",
-    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
-    "rsid": "rs121918719"
-  },
-  {
-    "QuestionNumber": "q27",
-    "Question_en": "Is rs1170153450 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
-    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
-    "rsid": "rs1170153450"
-  },
-  {
-    "QuestionNumber": "q4",
-    "Question_en": "What is the reference allele and alternative allele of rs121913529?",
-    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
-    "rsid": "rs121913529"
-  },
-  {
-    "QuestionNumber": "q16",
-    "Question_en": "Is rs12037987 associated with any diseases or clinical conditions?",
-    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
-    "rsid": "rs12037987"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs704341’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs796053166’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs796053166"
-  },
-  {
-    "QuestionNumber": "q23",
-    "Question_en": "How does rs880315 contribute to polygenic risk scores (PRS)?",
-    "Question_ja": "{rs} はポリジェニックリスクスコア（PRS）にどのように関与していますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs12037987 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs12037987"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs12037987’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs12037987"
-  },
-  {
-    "QuestionNumber": "q17",
-    "Question_en": "What is the clinical significance of rs121913529 in ClinVar?",
-    "Question_ja": "ClinVar における {rs} の臨床的意義は何ですか？",
-    "rsid": "rs121913529"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs1057519999’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs1057519999"
-  },
-  {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs796053229’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs796053229"
-  },
-  {
-    "QuestionNumber": "q20",
-    "Question_en": "Does rs704341 increase genetic risk for any diseases?",
-    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs880315 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q19",
-    "Question_en": "Is rs704341 listed in any GWAS studies?",
-    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
-    "rsid": "rs704341"
-  },
-  {
-    "QuestionNumber": "q20",
-    "Question_en": "Does rs880315 increase genetic risk for any diseases?",
-    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
-    "rsid": "rs880315"
-  },
-  {
-    "QuestionNumber": "q20",
-    "Question_en": "Does rs12037987 increase genetic risk for any diseases?",
-    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
-    "rsid": "rs12037987"
-  },
-  {
+    "Index": 2,
     "QuestionNumber": "q32",
     "Question_en": "What experimental evidence exists for rs880315’s functional impact?",
     "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
     "rsid": "rs880315"
   },
   {
-    "QuestionNumber": "q16",
-    "Question_en": "Is rs880315 associated with any diseases or clinical conditions?",
-    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
-    "rsid": "rs880315"
+    "Index": 3,
+    "QuestionNumber": "q49",
+    "Question_en": "Is rs121913279 included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?",
+    "Question_ja": "{rs} は gnomAD や 1000 Genomes のような集団ゲノムデータベースに含まれていますか？",
+    "rsid": "rs121913279"
   },
   {
-    "QuestionNumber": "q16",
-    "Question_en": "Is rs1201448391 associated with any diseases or clinical conditions?",
-    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
-    "rsid": "rs1201448391"
+    "Index": 4,
+    "QuestionNumber": "q43",
+    "Question_en": "What haplotypes include rs1208662086?",
+    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
+    "rsid": "rs1208662086"
   },
   {
-    "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs1201448391’s functional impact?",
-    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
-    "rsid": "rs1201448391"
+    "Index": 5,
+    "QuestionNumber": "q7",
+    "Question_en": "Where can I find genomic data for rs587782044?",
+    "Question_ja": "{rs} に関するゲノムデータはどこで見つけられますか？",
+    "rsid": "rs587782044"
   },
   {
+    "Index": 6,
     "QuestionNumber": "q20",
-    "Question_en": "Does rs1201448391 increase genetic risk for any diseases?",
+    "Question_en": "Does rs886042528 increase genetic risk for any diseases?",
     "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
-    "rsid": "rs1201448391"
+    "rsid": "rs886042528"
   },
   {
+    "Index": 7,
+    "QuestionNumber": "q17",
+    "Question_en": "What is the clinical significance of rs121913529 in ClinVar?",
+    "Question_ja": "ClinVar における {rs} の臨床的意義は何ですか？",
+    "rsid": "rs121913529"
+  },
+  {
+    "Index": 8,
     "QuestionNumber": "q31",
     "Question_en": "How does rs727504136 affect transcript expression?",
     "Question_ja": "{rs} は転写物の発現にどのような影響を与えますか？",
     "rsid": "rs727504136"
   },
   {
+    "Index": 9,
+    "QuestionNumber": "q4",
+    "Question_en": "What is the reference allele and alternative allele of rs1057519999?",
+    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
+    "rsid": "rs1057519999"
+  },
+  {
+    "Index": 10,
+    "QuestionNumber": "q34",
+    "Question_en": "Can rs1208662086 be a target for genome editing (CRISPR)?",
+    "Question_ja": "{rs} はゲノム編集（CRISPR）の標的になり得ますか？",
+    "rsid": "rs1208662086"
+  },
+  {
+    "Index": 11,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs80356821?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs80356821"
+  },
+  {
+    "Index": 12,
+    "QuestionNumber": "q41",
+    "Question_en": "Tell me about variants that have similar effects to the rs587782044 variant.",
+    "Question_ja": "{rs} と同様の影響を持つ他のバリアントについて教えてください。",
+    "rsid": "rs587782044"
+  },
+  {
+    "Index": 13,
+    "QuestionNumber": "q50",
+    "Question_en": "What machine learning models have been used to predict the impact of rs880315?",
+    "Question_ja": "{rs} の影響を予測するために使用された機械学習モデルにはどのようなものがありますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 14,
+    "QuestionNumber": "q36",
+    "Question_en": "What is the evolutionary background of rs794726784?",
+    "Question_ja": "{rs} の進化的背景を教えてください。",
+    "rsid": "rs794726784"
+  },
+  {
+    "Index": 15,
+    "QuestionNumber": "q37",
+    "Question_en": "What is the ancestral allele of rs880315?",
+    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 16,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs571414497 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs571414497"
+  },
+  {
+    "Index": 17,
+    "QuestionNumber": "q19",
+    "Question_en": "Is rs12037987 listed in any GWAS studies?",
+    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 18,
+    "QuestionNumber": "q20",
+    "Question_en": "Does rs880315 increase genetic risk for any diseases?",
+    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 19,
+    "QuestionNumber": "q29",
+    "Question_en": "How does the rs880315 allele affect the structure and function of genes?",
+    "Question_ja": "{rs} のアレルは遺伝子の構造や機能にどのような影響を与えますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 20,
+    "QuestionNumber": "q23",
+    "Question_en": "How does rs880315 contribute to polygenic risk scores (PRS)?",
+    "Question_ja": "{rs} はポリジェニックリスクスコア（PRS）にどのように関与していますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 21,
+    "QuestionNumber": "q6",
+    "Question_en": "What is the minor allele frequency (MAF) of rs34637584?",
+    "Question_ja": "{rs} のマイナーアレル頻度（MAF）はどれくらいですか？",
+    "rsid": "rs34637584"
+  },
+  {
+    "Index": 22,
+    "QuestionNumber": "q26",
+    "Question_en": "How does rs121913279 affect the metabolism of alcohol or specific drugs?",
+    "Question_ja": "{rs} はアルコールや特定の薬物の代謝にどのような影響を与えますか？",
+    "rsid": "rs121913279"
+  },
+  {
+    "Index": 23,
+    "QuestionNumber": "q47",
+    "Question_en": "What bioinformatics tools can analyze rs1057519999?",
+    "Question_ja": "{rs} を解析するためのバイオインフォマティクスツールは何がありますか？",
+    "rsid": "rs1057519999"
+  },
+  {
+    "Index": 24,
+    "QuestionNumber": "q19",
+    "Question_en": "Is rs886042528 listed in any GWAS studies?",
+    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
+    "rsid": "rs886042528"
+  },
+  {
+    "Index": 25,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs727504136?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs727504136"
+  },
+  {
+    "Index": 26,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs1489788269 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs1489788269"
+  },
+  {
+    "Index": 27,
+    "QuestionNumber": "q20",
+    "Question_en": "Does rs12037987 increase genetic risk for any diseases?",
+    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 28,
+    "QuestionNumber": "q20",
+    "Question_en": "Does rs1201448391 increase genetic risk for any diseases?",
+    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
+    "rsid": "rs1201448391"
+  },
+  {
+    "Index": 29,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs587782044 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs587782044"
+  },
+  {
+    "Index": 30,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs1057519999 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs1057519999"
+  },
+  {
+    "Index": 31,
+    "QuestionNumber": "q37",
+    "Question_en": "What is the ancestral allele of rs1489788269?",
+    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
+    "rsid": "rs1489788269"
+  },
+  {
+    "Index": 32,
+    "QuestionNumber": "q16",
+    "Question_en": "Is rs12037987 associated with any diseases or clinical conditions?",
+    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 33,
+    "QuestionNumber": "q39",
+    "Question_en": "What are the effects of rs1057519999 in cis-acting elements?",
+    "Question_ja": "{rs} はシス作用エレメント（cis-acting elements）にどのような影響を与えますか？",
+    "rsid": "rs1057519999"
+  },
+  {
+    "Index": 34,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs794727152’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs794727152"
+  },
+  {
+    "Index": 35,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs121913279?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs121913279"
+  },
+  {
+    "Index": 36,
+    "QuestionNumber": "q6",
+    "Question_en": "What is the minor allele frequency (MAF) of rs762927460?",
+    "Question_ja": "{rs} のマイナーアレル頻度（MAF）はどれくらいですか？",
+    "rsid": "rs762927460"
+  },
+  {
+    "Index": 37,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs796052984 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs796052984"
+  },
+  {
+    "Index": 38,
+    "QuestionNumber": "q37",
+    "Question_en": "What is the ancestral allele of rs12037987?",
+    "Question_ja": "{rs} の祖先アレル（ancestral allele）は何ですか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 39,
+    "QuestionNumber": "q14",
+    "Question_en": "Has rs794726784 undergone recent positive selection in any population?",
+    "Question_ja": "{rs} は最近、どこかの集団で正の自然選択を受けていますか？",
+    "rsid": "rs794726784"
+  },
+  {
+    "Index": 40,
+    "QuestionNumber": "q43",
+    "Question_en": "What haplotypes include rs763684724?",
+    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
+    "rsid": "rs763684724"
+  },
+  {
+    "Index": 41,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs796053216 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs796053216"
+  },
+  {
+    "Index": 42,
+    "QuestionNumber": "q20",
+    "Question_en": "Does rs794726721 increase genetic risk for any diseases?",
+    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
+    "rsid": "rs794726721"
+  },
+  {
+    "Index": 43,
+    "QuestionNumber": "q11",
+    "Question_en": "What is the allele frequency of rs121913529 in East Asian populations?",
+    "Question_ja": "東アジア人集団における {rs} のアレル頻度はどれくらいですか？",
+    "rsid": "rs121913529"
+  },
+  {
+    "Index": 44,
     "QuestionNumber": "q4",
     "Question_en": "What is the reference allele and alternative allele of rs587782044?",
     "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
     "rsid": "rs587782044"
   },
   {
+    "Index": 45,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs762927460 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs762927460"
+  },
+  {
+    "Index": 46,
+    "QuestionNumber": "q34",
+    "Question_en": "Can rs886042528 be a target for genome editing (CRISPR)?",
+    "Question_ja": "{rs} はゲノム編集（CRISPR）の標的になり得ますか？",
+    "rsid": "rs886042528"
+  },
+  {
+    "Index": 47,
     "QuestionNumber": "q32",
-    "Question_en": "What experimental evidence exists for rs794727152’s functional impact?",
+    "Question_en": "What experimental evidence exists for rs796053229’s functional impact?",
     "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs796053229"
+  },
+  {
+    "Index": 48,
+    "QuestionNumber": "q24",
+    "Question_en": "Does rs794727152 influence drug metabolism or response?",
+    "Question_ja": "{rs} は薬物代謝や薬剤応答に影響しますか？",
     "rsid": "rs794727152"
+  },
+  {
+    "Index": 49,
+    "QuestionNumber": "q13",
+    "Question_en": "What is the allele frequency of rs880315 in African populations?",
+    "Question_ja": "アフリカ人集団における {rs} のアレル頻度はどれくらいですか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 50,
+    "QuestionNumber": "q41",
+    "Question_en": "Tell me about variants that have similar effects to the rs1208662086 variant.",
+    "Question_ja": "{rs} と同様の影響を持つ他のバリアントについて教えてください。",
+    "rsid": "rs1208662086"
+  },
+  {
+    "Index": 51,
+    "QuestionNumber": "q4",
+    "Question_en": "What is the reference allele and alternative allele of rs727504136?",
+    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
+    "rsid": "rs727504136"
+  },
+  {
+    "Index": 52,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs121913529?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs121913529"
+  },
+  {
+    "Index": 53,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs80356821 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs80356821"
+  },
+  {
+    "Index": 54,
+    "QuestionNumber": "q19",
+    "Question_en": "Is rs876660744 listed in any GWAS studies?",
+    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
+    "rsid": "rs876660744"
+  },
+  {
+    "Index": 55,
+    "QuestionNumber": "q28",
+    "Question_en": "Can rs12037987 be used as a biomarker for drug response?",
+    "Question_ja": "{rs} は薬剤応答のバイオマーカーとして利用できますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 56,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs12037987’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 57,
+    "QuestionNumber": "q20",
+    "Question_en": "Does rs704341 increase genetic risk for any diseases?",
+    "Question_ja": "{rs} は何らかの疾患に対する遺伝的リスクを高めますか？",
+    "rsid": "rs704341"
+  },
+  {
+    "Index": 58,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs704341 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs704341"
+  },
+  {
+    "Index": 59,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs796053166’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs796053166"
+  },
+  {
+    "Index": 60,
+    "QuestionNumber": "q36",
+    "Question_en": "What is the evolutionary background of rs12037987?",
+    "Question_ja": "{rs} の進化的背景を教えてください。",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 61,
+    "QuestionNumber": "q40",
+    "Question_en": "What selection pressures have acted on rs794726721 over time?",
+    "Question_ja": "{rs} に対して時代を通じてどのような選択圧が働いてきましたか？",
+    "rsid": "rs794726721"
+  },
+  {
+    "Index": 62,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs1201448391’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs1201448391"
+  },
+  {
+    "Index": 63,
+    "QuestionNumber": "q15",
+    "Question_en": "Is there any evidence of natural selection acting on rs121918719?",
+    "Question_ja": "{rs} に対して自然選択が働いている証拠はありますか？",
+    "rsid": "rs121918719"
+  },
+  {
+    "Index": 64,
+    "QuestionNumber": "q49",
+    "Question_en": "Is rs431905511 included in any population genomics databases (e.g., gnomAD, 1000 Genomes)?",
+    "Question_ja": "{rs} は gnomAD や 1000 Genomes のような集団ゲノムデータベースに含まれていますか？",
+    "rsid": "rs431905511"
+  },
+  {
+    "Index": 65,
+    "QuestionNumber": "q43",
+    "Question_en": "What haplotypes include rs113488022?",
+    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
+    "rsid": "rs113488022"
+  },
+  {
+    "Index": 66,
+    "QuestionNumber": "q43",
+    "Question_en": "What haplotypes include rs762927460?",
+    "Question_ja": "{rs} を含むハプロタイプにはどのようなものがありますか？",
+    "rsid": "rs762927460"
+  },
+  {
+    "Index": 67,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs704341’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs704341"
+  },
+  {
+    "Index": 68,
+    "QuestionNumber": "q19",
+    "Question_en": "Is rs704341 listed in any GWAS studies?",
+    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
+    "rsid": "rs704341"
+  },
+  {
+    "Index": 69,
+    "QuestionNumber": "q50",
+    "Question_en": "What machine learning models have been used to predict the impact of rs80356821?",
+    "Question_ja": "{rs} の影響を予測するために使用された機械学習モデルにはどのようなものがありますか？",
+    "rsid": "rs80356821"
+  },
+  {
+    "Index": 70,
+    "QuestionNumber": "q15",
+    "Question_en": "Is there any evidence of natural selection acting on rs587782044?",
+    "Question_ja": "{rs} に対して自然選択が働いている証拠はありますか？",
+    "rsid": "rs587782044"
+  },
+  {
+    "Index": 71,
+    "QuestionNumber": "q27",
+    "Question_en": "Is rs745774658 included in any pharmacogenomics guidelines (e.g., PharmGKB)?",
+    "Question_ja": "{rs} は薬理ゲノミクスのガイドライン（例：PharmGKB）に含まれていますか？",
+    "rsid": "rs745774658"
+  },
+  {
+    "Index": 72,
+    "QuestionNumber": "q32",
+    "Question_en": "What experimental evidence exists for rs1057519999’s functional impact?",
+    "Question_ja": "{rs} の機能的影響に関する実験的証拠はありますか？",
+    "rsid": "rs1057519999"
+  },
+  {
+    "Index": 73,
+    "QuestionNumber": "q28",
+    "Question_en": "Can rs587782044 be used as a biomarker for drug response?",
+    "Question_ja": "{rs} は薬剤応答のバイオマーカーとして利用できますか？",
+    "rsid": "rs587782044"
+  },
+  {
+    "Index": 74,
+    "QuestionNumber": "q16",
+    "Question_en": "Is rs880315 associated with any diseases or clinical conditions?",
+    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 75,
+    "QuestionNumber": "q45",
+    "Question_en": "What other missense variants exist in the same gene as rs431905511?",
+    "Question_ja": "{rs} と同じ遺伝子内に存在する他のミスセンスバリアントは何ですか？",
+    "rsid": "rs431905511"
+  },
+  {
+    "Index": 76,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs431905511?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs431905511"
+  },
+  {
+    "Index": 77,
+    "QuestionNumber": "q38",
+    "Question_en": "How does rs571414497 interact with environmental factors?",
+    "Question_ja": "{rs} は環境因子とどのように相互作用しますか？",
+    "rsid": "rs571414497"
+  },
+  {
+    "Index": 78,
+    "QuestionNumber": "q19",
+    "Question_en": "Is rs880315 listed in any GWAS studies?",
+    "Question_ja": "{rs} は何らかのGWAS研究に掲載されていますか？",
+    "rsid": "rs880315"
+  },
+  {
+    "Index": 79,
+    "QuestionNumber": "q4",
+    "Question_en": "What is the reference allele and alternative allele of rs794727152?",
+    "Question_ja": "{rs} のリファレンスアレルとオルタナティブアレルは何ですか？",
+    "rsid": "rs794727152"
+  },
+  {
+    "Index": 80,
+    "QuestionNumber": "q7",
+    "Question_en": "Where can I find genomic data for rs12037987?",
+    "Question_ja": "{rs} に関するゲノムデータはどこで見つけられますか？",
+    "rsid": "rs12037987"
+  },
+  {
+    "Index": 81,
+    "QuestionNumber": "q16",
+    "Question_en": "Is rs1201448391 associated with any diseases or clinical conditions?",
+    "Question_ja": "{rs} は何らかの疾患や臨床的状態に関連していますか？",
+    "rsid": "rs1201448391"
+  },
+  {
+    "Index": 82,
+    "QuestionNumber": "q48",
+    "Question_en": "What datasets contain information on rs794726721?",
+    "Question_ja": "{rs} に関する情報が含まれるデータセットは何がありますか？",
+    "rsid": "rs794726721"
   }
 ]
