@@ -7,7 +7,7 @@ import pandas as pd
 import openpyxl
 
 # ディレクトリのパス
-directory_path = "./evaluation/"  # 実際のファイルが保存されているパスに置き換えてください
+directory_path = "./evaluation/gpt-4o"  # 実際のファイルが保存されているパスに置き換えてください
 
 # 抽出したデータを格納するリスト
 extracted_data = {}
