@@ -154,7 +154,7 @@ export default function AnswersEvaluator() {
     }));
     setFileContents(contents);
 
-    const path = `evaluation/human/evaluation_${filePairs[currentIndex]?.qY}_${rs}.jsonl`;
+    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex]?.qY}_${rs}.jsonl`;
     try {
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi',
@@ -162,7 +162,10 @@ export default function AnswersEvaluator() {
         path
       });
       const record = JSON.parse(base64ToUtf8(data.content));
-      if (record?.evaluation) setForm(record.evaluation);
+      if (record?.evaluation) {
+        setForm(record.evaluation);
+        setMessage('✅ 評価フォームがリストアされました');
+      }
     } catch {}
   };
 
@@ -181,7 +184,7 @@ export default function AnswersEvaluator() {
 
   const handleUpload = async () => {
     const rs = filePairs[currentIndex].rsXXXX.replace('.md', '');
-    const path = `evaluation/human/evaluation_${filePairs[currentIndex].qY}_${rs}.jsonl`;
+    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`;
     let sha;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
@@ -201,7 +204,7 @@ export default function AnswersEvaluator() {
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
         path,
-        message: 'Add evaluation data',
+        message: `Add human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`,
         content: base64Content,
         sha
       });
@@ -220,7 +223,7 @@ export default function AnswersEvaluator() {
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
         path,
-        message: 'Delete evaluation',
+        message: `Delete human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`,
         sha: data.sha
       });
       setMessage('🗑️ Deleted evaluation file');
