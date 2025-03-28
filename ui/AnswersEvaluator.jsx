@@ -81,20 +81,48 @@ export default function AnswersEvaluator() {
         }
       });
     }
-    setFilePairs(pairs);
-    console.log('Loaded file pairs:', pairs);
+    const sampledRs = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/evaluation/human/sampled_30_each.json');
+const sampledList = JSON.parse(base64ToUtf8(sampledRs.data.content));
+
+const sampledSet = new Set(sampledList.map(sample => `${sample.q}_${sample.rs}`));
+pairs = pairs.filter(pair => sampledSet.has(`${pair.qY}_${pair.rsXXXX.replace('.md', '')}`));
+
+setFilePairs(pairs);
+console.log('Loaded file pairs:', pairs);
   };
 
   const fetchQuestion = async (qY, rs) => {
-    const { data } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
-    const content = base64ToUtf8(data.content);
-    const questions = JSON5.parse(content);
-    const qKey = qY;
-    if (questions[qKey]) {
-      const formatted = questions[qKey].replace('{rs}', rs);
-      setQuestionText(formatted);
-    } else {
-      setQuestionText('Question template not found');
+    try {
+      // Fetch English questions
+      const { data: enData } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions.json');
+      const enContent = base64ToUtf8(enData.content);
+      const enQuestions = JSON5.parse(enContent);
+
+      // Fetch Japanese questions
+      const { data: jaData } = await octokit.request('GET /repos/mitsuhashi/chat-togovar/contents/questions_ja.json');
+      const jaContent = base64ToUtf8(jaData.content);
+      const jaQuestions = JSON5.parse(jaContent);
+
+      const qKey = qY;
+
+      // Format and set English question
+      if (enQuestions[qKey]) {
+        const formattedEn = enQuestions[qKey].replace('{rs}', rs);
+        setQuestionText((prev) => `${prev}\n\nEnglish: ${formattedEn}`);
+      } else {
+        setQuestionText((prev) => `${prev}\n\nEnglish: Question template not found`);
+      }
+
+      // Format and set Japanese question
+      if (jaQuestions[qKey]) {
+        const formattedJa = jaQuestions[qKey].replace('{rs}', rs);
+        setQuestionText((prev) => `${prev}\n\n日本語: ${formattedJa}`);
+      } else {
+        setQuestionText((prev) => `${prev}\n\n日本語: 質問テンプレートが見つかりません`);
+      }
+    } catch (error) {
+      console.error('Failed to fetch questions:', error.message);
+      setQuestionText('❌ Failed to fetch questions');
     }
   };
 
@@ -224,16 +252,20 @@ export default function AnswersEvaluator() {
                         </label>
                       ))}
                     </div>
-                    <Input
-                      placeholder="Reason (English)"
-                      value={form[key]?.[field]?.reason_en || ''}
-                      onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
-                    />
-                    <Input
-                      placeholder="Reason (日本語)"
-                      value={form[key]?.[field]?.reason_ja || ''}
-                      onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
-                    />
+                    <textarea
+  placeholder="Reason (English)"
+  className="w-full border rounded p-2 resize-x"
+  rows={3}
+  value={form[key]?.[field]?.reason_en || ''}
+  onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
+/>
+                    <textarea
+  placeholder="Reason (日本語)"
+  className="w-full border rounded p-2 resize-x"
+  rows={3}
+  value={form[key]?.[field]?.reason_ja || ''}
+  onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
+/>
                   </div>
                 ))}
               </div>
@@ -248,4 +280,5 @@ export default function AnswersEvaluator() {
       </div>
     </div>
   );
+}
 }
