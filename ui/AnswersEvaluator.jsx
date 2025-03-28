@@ -281,4 +281,3 @@ console.log('Loaded file pairs:', pairs);
     </div>
   );
 }
-}
