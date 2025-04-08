@@ -10,28 +10,10 @@ with open("./evaluation/gpt-4o/aggregate_aqes.json") as f:
 with open("./questions_ja.json") as f:
     questions_ja = json.load(f)
 
-# BestAnswerごとに分類
-by_best_answer = {
-    "ChatTogoVar": [],
-    "GPT-4o": [],
-    "VarChat": []
-}
+# 全体からランダムに100問抽出（100件以上あることが前提）
+sampled_entries = random.sample(data, min(100, len(data)))
 
-for entry in data:
-    best = entry.get("BestAnswer")
-    if best in by_best_answer:
-        by_best_answer[best].append(entry)
-
-# サンプリング（最大30件ずつ）
-sampled_entries = []
-for key in by_best_answer:
-    sampled = random.sample(by_best_answer[key], min(30, len(by_best_answer[key])))
-    sampled_entries.extend(sampled)
-
-# ランダムに並び替え
-random.shuffle(sampled_entries)
-
-# Index・rsidを追加しつつ、日本語＆英語の質問を含む簡易出力用リストも作成
+# ランダム順を維持しつつ、Index・rsidを追加し、簡易形式も作成
 sampled_entries_simple = []
 for idx, entry in enumerate(sampled_entries, start=1):
     qnum = entry.get("QuestionNumber")
@@ -50,9 +32,9 @@ for idx, entry in enumerate(sampled_entries, start=1):
     })
 
 # フル情報付きファイル（Index + rsid 付き）
-with open("./evaluation/human/sampled_30_each_full.json", "w") as f:
+with open("./evaluation/human/sampled_100_full.json", "w") as f:
     json.dump(sampled_entries, f, indent=2, ensure_ascii=False)
 
 # 簡易ファイル（Index + rsid 付き）
-with open("./evaluation/human/sampled_30_each.json", "w") as f:
+with open("./evaluation/human/sampled_100.json", "w") as f:
     json.dump(sampled_entries_simple, f, indent=2, ensure_ascii=False)
