@@ -1,0 +1,72 @@
+{
+  "qY": "q2",
+  "rsXXXX": "rs571414497.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "10",
+        "reason_ja": "10点"
+      },
+      "Completeness": {
+        "score": "10",
+        "reason_ja": "10点"
+      },
+      "Logical Consistency": {
+        "score": "10",
+        "reason_ja": "10点"
+      },
+      "Clarity and Conciseness": {
+        "score": "10",
+        "reason_ja": "10点"
+      },
+      "Evidence Support": {
+        "score": "10",
+        "reason_ja": "10点"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "5",
+        "reason_ja": "５点"
+      },
+      "Completeness": {
+        "score": "5",
+        "reason_ja": "５点"
+      },
+      "Logical Consistency": {
+        "score": "5",
+        "reason_ja": "５点"
+      },
+      "Clarity and Conciseness": {
+        "score": "5",
+        "reason_ja": "５点"
+      },
+      "Evidence Support": {
+        "score": "5",
+        "reason_ja": "５点"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "1",
+        "reason_en": "１点"
+      },
+      "Completeness": {
+        "score": "1",
+        "reason_en": "１点"
+      },
+      "Logical Consistency": {
+        "score": "1",
+        "reason_en": "１点"
+      },
+      "Clarity and Conciseness": {
+        "score": "1",
+        "reason_en": "１点"
+      },
+      "Evidence Support": {
+        "score": "1",
+        "reason_en": "１点"
+      }
+    }
+  }
+}
