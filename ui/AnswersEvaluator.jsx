@@ -22,32 +22,20 @@ function utf8ToBase64(utf8String) {
   return btoa(binary);
 }
 
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
-}
-
 export default function AnswersEvaluator() {
   const [token, setToken] = useState('');
   const [filePairs, setFilePairs] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fileContents, setFileContents] = useState(['', '', '']);
   const [message, setMessage] = useState('');
-  const [form, setForm] = useState({ A: {}, B: {}, C: {} });
-  const [shuffledLabels, setShuffledLabels] = useState([]);
+  const [form, setForm] = useState({ ChatTogoVar: {}, GPT4o: {}, VarChat: {} });
   const [questionText, setQuestionText] = useState('');
   const [questionJa, setQuestionJa] = useState('');
-  const [sampleIndex, setSampleIndex] = useState(null);
 
   const scrollRefs = {
-    A: useRef(null),
-    B: useRef(null),
-    C: useRef(null),
+    ChatTogoVar: useRef(null),
+    GPT4o: useRef(null),
+    VarChat: useRef(null),
   };
 
   const octokit = new Octokit({ auth: token });
@@ -71,43 +59,26 @@ export default function AnswersEvaluator() {
   }, [token]);
 
   useEffect(() => {
-    const saved = localStorage.getItem(`eval_${currentIndex}`);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setForm(parsed);
-      } catch {}
-    }
-  }, [currentIndex]);
-
-  useEffect(() => {
-    localStorage.setItem(`eval_${currentIndex}`, JSON.stringify(form));
-  }, [form, currentIndex]);
-
-  useEffect(() => {
     if (filePairs.length > 0 && currentIndex < filePairs.length) {
-      setMessage(''); // ページ遷移時にメッセージをクリア
+      setMessage('');
       fetchFiles(filePairs[currentIndex]);
     }
   }, [currentIndex, filePairs]);
-
 
   const fetchFilePairs = async () => {
     try {
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
-        path: 'evaluation/human/sampled_30_each.json'
+        path: 'evaluation/human/sampled_100.json'
       });
       const content = base64ToUtf8(data.content);
       const samples = JSON.parse(content);
       const pairs = samples.map(({ QuestionNumber, rsid }) => ({ qY: QuestionNumber, rsXXXX: `${rsid}.md` }));
       setFilePairs(pairs);
       setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
-      console.log('Loaded pairs:', pairs);
     } catch (err) {
-      setMessage(`❌ Failed to load sampled_30_each.json: ${err.message}`);
-      console.error('Error loading sampled_30_each.json', err);
+      setMessage(`❌ Failed to load sampled_100.json: ${err.message}`);
     }
   };
 
@@ -125,28 +96,20 @@ export default function AnswersEvaluator() {
   };
 
   const fetchFiles = async (pair) => {
-    setShuffledLabels([]);
     setFileContents(['', '', '']);
 
     const rs = pair.rsXXXX.replace('.md', '');
     await fetchQuestion(pair.qY, rs);
 
     const paths = [
-      { label: 'ChatTogoVar', path: `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}` },
-      { label: 'GPT-4o', path: `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}` },
-      { label: 'VarChat', path: `answers/varchat/${pair.rsXXXX}` }
+      `answers/chat_togovar/${pair.qY}/${pair.rsXXXX}`,
+      `answers/gpt-4o/${pair.qY}/${pair.rsXXXX}`,
+      `answers/varchat/${pair.rsXXXX}`
     ];
 
-    const shuffled = shuffle(['A', 'B', 'C'].map((k, i) => ({ key: k, label: paths[i].label, path: paths[i].path })));
-    setShuffledLabels(shuffled);
-
-    const contents = await Promise.all(shuffled.map(async (item) => {
+    const contents = await Promise.all(paths.map(async (path) => {
       try {
-        const { data } = await octokit.repos.getContent({
-          owner: 'mitsuhashi',
-          repo: 'chat-togovar',
-          path: item.path
-        });
+        const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
         return base64ToUtf8(data.content);
       } catch {
         return '(Content unavailable)';
@@ -154,28 +117,26 @@ export default function AnswersEvaluator() {
     }));
     setFileContents(contents);
 
-    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex]?.qY}_${rs}.jsonl`;
+    const path = `evaluation/human/evaluation_${currentIndex}_${pair.qY}_${rs}.json`;
     try {
-      const { data } = await octokit.repos.getContent({
-        owner: 'mitsuhashi',
-        repo: 'chat-togovar',
-        path
-      });
+      const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
       const record = JSON.parse(base64ToUtf8(data.content));
       if (record?.evaluation) {
         setForm(record.evaluation);
         setMessage('✅ 評価フォームがリストアされました');
       }
-    } catch {}
+    } catch {
+      setForm({ ChatTogoVar: {}, GPT4o: {}, VarChat: {} });
+    }
   };
 
-  const handleInputChange = (key, field, subfield, value) => {
+  const handleInputChange = (model, field, subfield, value) => {
     setForm((prev) => ({
       ...prev,
-      [key]: {
-        ...prev[key],
+      [model]: {
+        ...prev[model],
         [field]: {
-          ...prev[key]?.[field],
+          ...prev[model]?.[field],
           [subfield]: value
         }
       }
@@ -183,8 +144,17 @@ export default function AnswersEvaluator() {
   };
 
   const handleUpload = async () => {
-    const rs = filePairs[currentIndex].rsXXXX.replace('.md', '');
-    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`;
+    if (!filePairs[currentIndex]) {
+      setMessage('❌ ファイルペアが存在しません');
+      return;
+    }
+    const pair = filePairs[currentIndex];
+    const rs = pair.rsXXXX?.replace('.md', '');
+    if (!rs || !pair.qY) {
+      setMessage('❌ 必要なファイル情報が不正です');
+      return;
+    }
+    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.json`;
     let sha;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
@@ -192,19 +162,18 @@ export default function AnswersEvaluator() {
     } catch (err) {
       if (err.status !== 404) throw err;
     }
-    const jsonlContent = JSON.stringify({
+    const jsonContent = JSON.stringify({
       ...filePairs[currentIndex],
-      label_mapping: shuffledLabels.reduce((acc, item) => { acc[item.key] = item.label; return acc; }, {}),
       evaluation: form
-    }) + '\n';
-    const base64Content = utf8ToBase64(jsonlContent);
+    }, null, 2);
+    const base64Content = utf8ToBase64(jsonContent);
 
     try {
       await octokit.repos.createOrUpdateFileContents({
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
         path,
-        message: `Add human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`,
+        message: `Add human evaluation result for ${rs}`,
         content: base64Content,
         sha
       });
@@ -216,18 +185,18 @@ export default function AnswersEvaluator() {
 
   const handleDelete = async () => {
     const rs = filePairs[currentIndex].rsXXXX.replace('.md', '');
-    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`;
+    const path = `evaluation/human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.json`;
     try {
       const { data } = await octokit.repos.getContent({ owner: 'mitsuhashi', repo: 'chat-togovar', path });
       await octokit.repos.deleteFile({
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
         path,
-        message: `Delete human/evaluation_${currentIndex}_${filePairs[currentIndex].qY}_${rs}.jsonl`,
+        message: `Delete human evaluation for ${rs}`,
         sha: data.sha
       });
+      setForm({ ChatTogoVar: {}, GPT4o: {}, VarChat: {} });
       setMessage('🗑️ Deleted evaluation file');
-      setForm({ A: {}, B: {}, C: {} });
     } catch (error) {
       setMessage(`❌ Delete failed: ${error.message}`);
     }
@@ -248,29 +217,28 @@ export default function AnswersEvaluator() {
       <p className="text-sm text-gray-500">{currentIndex + 1} / {filePairs.length} 問</p>
 
       <div className="space-y-2">
-        <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
-        <Button variant="destructive" onClick={handleDelete}>Delete Evaluation JSONL</Button>
+        <Button onClick={handleUpload}>Upload Evaluation JSON to GitHub</Button>
+        <Button variant="destructive" onClick={handleDelete}>Delete Evaluation JSON</Button>
         {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
       </div>
 
       <div className="border p-4 bg-gray-50 rounded">
         <h2 className="font-bold">Question</h2>
-        <p><span className="text-sm text-gray-500">Index: {currentIndex + 1}</span></p>
         <p className="mb-1">{questionText}</p>
         <p className="text-gray-700 italic">{questionJa}</p>
       </div>
 
       <div className="space-y-6">
-        {['A', 'B', 'C'].map((key, idx) => (
-          <div key={key} className="border rounded-xl shadow p-4 bg-white flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-2/3 h-[40vh] overflow-auto" ref={scrollRefs[key]} onScroll={handleScroll(key)}>
-              <h4 className="font-semibold text-lg mb-2">Answer {key}</h4>
+        {["ChatTogoVar", "GPT4o", "VarChat"].map((model, idx) => (
+          <div key={model} className="border rounded-xl shadow p-4 bg-white flex flex-col md:flex-row gap-6">
+            <div className="w-full md:w-2/3 h-[40vh] overflow-auto" ref={scrollRefs[model]} onScroll={handleScroll(model)}>
+              <h4 className="font-semibold text-lg mb-2">Answer: {model}</h4>
               <div className="prose prose-sm max-w-none">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{fileContents[idx]}</ReactMarkdown>
               </div>
             </div>
             <div className="w-full md:w-1/3 space-y-3">
-              {['Accuracy', 'Completeness', 'Logical Consistency', 'Clarity and Conciseness', 'Evidence Support'].map((field) => (
+              {["Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"].map((field) => (
                 <div key={field} className="space-y-1">
                   <label className="block font-medium text-sm">{field} Score</label>
                   <div className="flex flex-wrap gap-1">
@@ -278,10 +246,10 @@ export default function AnswersEvaluator() {
                       <label key={i} className="flex items-center space-x-1 text-xs">
                         <input
                           type="radio"
-                          name={`${key}-${field}`}
+                          name={`${model}-${field}`}
                           value={i}
-                          checked={form[key]?.[field]?.score === String(i)}
-                          onChange={(e) => handleInputChange(key, field, 'score', e.target.value)}
+                          checked={form[model]?.[field]?.score === String(i)}
+                          onChange={(e) => handleInputChange(model, field, 'score', e.target.value)}
                         />
                         <span>{i}</span>
                       </label>
@@ -291,32 +259,26 @@ export default function AnswersEvaluator() {
                     placeholder="Reason (English)"
                     className="w-full border rounded p-2 resize-x"
                     rows={3}
-                    value={form[key]?.[field]?.reason_en || ''}
-                    onChange={(e) => handleInputChange(key, field, 'reason_en', e.target.value)}
+                    value={form[model]?.[field]?.reason_en || ''}
+                    onChange={(e) => handleInputChange(model, field, 'reason_en', e.target.value)}
                   />
                   <textarea
                     placeholder="Reason (日本語)"
                     className="w-full border rounded p-2 resize-x"
                     rows={3}
-                    value={form[key]?.[field]?.reason_ja || ''}
-                    onChange={(e) => handleInputChange(key, field, 'reason_ja', e.target.value)}
+                    value={form[model]?.[field]?.reason_ja || ''}
+                    onChange={(e) => handleInputChange(model, field, 'reason_ja', e.target.value)}
                   />
                 </div>
               ))}
               <p className="text-sm font-semibold pt-1">
                 Total Score: {
-                  Object.values(form[key] || {}).reduce((acc, val) => acc + (parseInt(val.score || 0, 10)), 0)
+                  Object.values(form[model] || {}).reduce((acc, val) => acc + (parseInt(val.score || 0, 10)), 0)
                 } / 50
               </p>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="space-y-2">
-        <Button onClick={handleUpload}>Upload Evaluation JSONL to GitHub</Button>
-        <Button variant="destructive" onClick={handleDelete}>Delete Evaluation JSONL</Button>
-        {message && <div className="text-green-600 font-medium mt-2">{message}</div>}
       </div>
     </div>
   );
