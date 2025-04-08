@@ -2,6 +2,7 @@
 
 import json
 import random
+import re
 
 # データ読み込み
 with open("./evaluation/gpt-4o/aggregate_aqes.json") as f:
@@ -10,10 +11,17 @@ with open("./evaluation/gpt-4o/aggregate_aqes.json") as f:
 with open("./questions_ja.json") as f:
     questions_ja = json.load(f)
 
-# 全体からランダムに100問抽出（100件以上あることが前提）
+# ランダムに100問抽出
 sampled_entries = random.sample(data, min(100, len(data)))
 
-# ランダム順を維持しつつ、Index・rsidを追加し、簡易形式も作成
+# QuestionNumberの数値部分（例: "q23" -> 23）で昇順にソート
+def extract_q_number(entry):
+    match = re.match(r"q(\d+)", entry.get("QuestionNumber", "q0"))
+    return int(match.group(1)) if match else 0
+
+sampled_entries.sort(key=extract_q_number)
+
+# Index・rsidを追加し、簡易形式も作成
 sampled_entries_simple = []
 for idx, entry in enumerate(sampled_entries, start=1):
     qnum = entry.get("QuestionNumber")
