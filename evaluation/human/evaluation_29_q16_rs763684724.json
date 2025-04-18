@@ -1,0 +1,72 @@
+{
+  "qY": "q16",
+  "rsXXXX": "rs763684724.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "reason_en": "Reason test  for ChatTogoVar",
+        "score": "10",
+        "reason_ja": "理由テストChatTogoVar"
+      },
+      "Completeness": {
+        "score": "10",
+        "reason_ja": "理由テストChatTogoVar",
+        "reason_en": "Reason test  for ChatTogoVar"
+      },
+      "Logical Consistency": {
+        "score": "10",
+        "reason_ja": "理由テストChatTogoVar",
+        "reason_en": "Reason test  for ChatTogoVar"
+      },
+      "Clarity and Conciseness": {
+        "score": "10",
+        "reason_ja": "理由テストChatTogoVar",
+        "reason_en": "Reason test  for ChatTogoVar"
+      },
+      "Evidence Support": {
+        "reason_ja": "理由テストChatTogoVar",
+        "score": "10",
+        "reason_en": "Reason test  for ChatTogoVar"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "5"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "0",
+        "reason_ja": "理由テストChatTogoVar日本語だけ"
+      },
+      "Completeness": {
+        "score": "0",
+        "reason_ja": "理由テストChatTogoVar日本語だけ"
+      },
+      "Logical Consistency": {
+        "score": "0",
+        "reason_ja": "理由テストChatTogoVar日本語だけ"
+      },
+      "Clarity and Conciseness": {
+        "score": "0",
+        "reason_ja": "理由テストChatTogoVar日本語だけ"
+      },
+      "Evidence Support": {
+        "score": "0",
+        "reason_ja": "理由テストChatTogoVar日本語だけ"
+      }
+    }
+  }
+}
