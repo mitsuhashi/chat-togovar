@@ -1,0 +1,43 @@
+{
+  "qY": "q18",
+  "rsXXXX": "rs571414497.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "影響しないことをデータから推論している良い例"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1",
+        "reason_ja": "バリアントと遺伝子の紐付けを間違えてしまうことが、このような質問においては致命的であることを報告するための良い例"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {}
+  }
+}
