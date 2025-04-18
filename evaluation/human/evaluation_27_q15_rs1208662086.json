@@ -1,0 +1,59 @@
+{
+  "qY": "q15",
+  "rsXXXX": "rs1208662086.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "TogoVarのデータを使う良い例"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1",
+        "reason_ja": "間違ったデータを元に推論をしてしまう、むしろ紹介すべき例"
+      },
+      "Completeness": {
+        "score": "4"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "3"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "3"
+      }
+    }
+  }
+}
