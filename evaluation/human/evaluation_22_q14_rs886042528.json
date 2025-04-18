@@ -1,0 +1,58 @@
+{
+  "qY": "q14",
+  "rsXXXX": "rs886042528.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "10",
+        "reason_ja": "頻度情報はないが、疾患と関連する遺伝子であることから、正の自然選択を否定し、負の選択を受け入れる傾向があることを推測しているところが良い。このバリアントがpathogenicであるかを推測するところまで行くと、より良いエビデンスの提供となると思うが"
+      },
+      "Completeness": {
+        "score": "10"
+      },
+      "Logical Consistency": {
+        "score": "10"
+      },
+      "Clarity and Conciseness": {
+        "score": "10"
+      },
+      "Evidence Support": {
+        "score": "10"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "5"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    }
+  }
+}
