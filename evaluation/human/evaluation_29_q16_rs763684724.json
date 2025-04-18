@@ -49,23 +49,23 @@
     "VarChat": {
       "Accuracy": {
         "score": "0",
-        "reason_ja": "理由テストChatTogoVar日本語だけ"
+        "reason_ja": ""
       },
       "Completeness": {
         "score": "0",
-        "reason_ja": "理由テストChatTogoVar日本語だけ"
+        "reason_ja": ""
       },
       "Logical Consistency": {
         "score": "0",
-        "reason_ja": "理由テストChatTogoVar日本語だけ"
+        "reason_ja": ""
       },
       "Clarity and Conciseness": {
         "score": "0",
-        "reason_ja": "理由テストChatTogoVar日本語だけ"
+        "reason_ja": ""
       },
       "Evidence Support": {
         "score": "0",
-        "reason_ja": "理由テストChatTogoVar日本語だけ"
+        "reason_ja": ""
       }
     }
   }
