@@ -1,0 +1,58 @@
+{
+  "qY": "q28",
+  "rsXXXX": "rs113488022.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "ClinVarなどのデータから的確に可能性を検証している良い例"
+      },
+      "Completeness": {
+        "score": "10"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "9"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "8"
+      }
+    }
+  }
+}
