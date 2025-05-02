@@ -1,0 +1,60 @@
+{
+  "qY": "q45",
+  "rsXXXX": "rs1170153450.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "8"
+      },
+      "Completeness": {
+        "score": "2",
+        "reason_ja": "同じ遺伝子内の関連バリアントの情報を、バリアントのAPIに持たせるか、もう一度遺伝子情報のAPIにアクセスするか、検討の余地あり"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "7"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1",
+        "reason_ja": "遺伝子を特定できてない"
+      },
+      "Completeness": {
+        "score": "2"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "7"
+      },
+      "Completeness": {
+        "score": "1"
+      },
+      "Logical Consistency": {
+        "score": "3",
+        "reason_ja": "この手の質問には答えることができない"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "6"
+      }
+    }
+  }
+}
