@@ -1,0 +1,58 @@
+{
+  "qY": "q39",
+  "rsXXXX": "rs794727152.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "コーディング領域のバリアントであるという正確な情報から、シス作用エレメントに与える影響を考察しているのが良い"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "8"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "7"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    }
+  }
+}
