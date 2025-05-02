@@ -4,141 +4,143 @@ import os
 import json
 import pandas as pd
 import re
-from collections import defaultdict
+import xlsxwriter
 
-# 入力ディレクトリ
+# 設定
 human_eval_dir = "./evaluation/human"
+output_file = "./evaluation/human/aggregate_evaluation_human.xlsx"
 
-# 評価項目
 criteria_keys = [
-    "Accuracy",
-    "Completeness",
-    "Logical Consistency",
-    "Clarity and Conciseness",
-    "Evidence Support"
+    "Accuracy", "Completeness", "Logical Consistency", "Clarity and Conciseness", "Evidence Support"
 ]
+models = ["ChatTogoVar", "GPT4o", "VarChat"]
+base_url = "https://github.com/mitsuhashi/chat-togovar/blob/main/answers"
 
-# モデル名
-models = ["ChatTogoVar", "GPT-4o", "VarChat"]
-
-# 質問ごと＋モデルごとのスコア＆理由格納
-question_data = {}
-
-# .jsonl 読み込み
-for filename in os.listdir(human_eval_dir):
-    if not filename.endswith(".jsonl"):
-        continue
-
-    match = re.match(r"evaluation_(\d+)_q(\d+)_rs(.+)\.jsonl", filename)
-    if not match:
-        continue
-
-    eval_id_raw, question_num, rs_id = match.groups()
-    eval_id = int(eval_id_raw) + 1  # +1する
-    question_no = f"q{question_num}"
-    rs_id = f"rs{rs_id}"
-    filepath = os.path.join(human_eval_dir, filename)
-
-    with open(filepath, "r", encoding="utf-8") as f:
-        data = json.loads(f.readline())
-
-    label_mapping = data.get("label_mapping", {})
-    evaluation = data.get("evaluation", {})
-
-    model_info = {}
-
-    for answer_label, model_name in label_mapping.items():
-        if model_name not in models:
+def parse_evaluations():
+    rows = []
+    for filename in sorted(os.listdir(human_eval_dir)):
+        if not filename.endswith(".json"):
             continue
 
-        model_eval = evaluation.get(answer_label, {})
-        total_score = 0
-        score_items = {}
+        match = re.match(r"evaluation_(\d+)_q(\d+)_rs(.+)\.json", filename)
+        if not match:
+            continue
 
-        for criterion in criteria_keys:
-            score_str = model_eval.get(criterion, {}).get("score")
-            try:
-                score = int(score_str)
-                score_items[criterion] = score
-                total_score += score
-            except (TypeError, ValueError):
-                score_items[criterion] = None
+        eval_id_raw, question_num, rs_id = match.groups()
+        eval_id = int(eval_id_raw) + 1
+        question_no = f"q{question_num}"
+        rs_id_full = f"rs{rs_id}"
 
-        reason = None
-        for val in model_eval.values():
-            if isinstance(val, dict) and "reason_ja" in val:
-                reason = val["reason_ja"]
-                break
+        filepath = os.path.join(human_eval_dir, filename)
+        with open(filepath, encoding='utf-8') as f:
+            data = json.load(f)
 
-        model_info[model_name] = {
-            "Total": total_score,
-            "Scores": score_items,
-            "Reason": reason
+        row = {
+            "ID": eval_id,
+            "Question": question_no,
+            "rsID": rs_id_full,
         }
 
-    question_data[eval_id] = {
-        "EvaluationID": eval_id,
-        "QuestionNumber": question_no,
-        "RSID": rs_id,
-        "ModelInfo": model_info
-    }
+        total_scores = {}
 
-# DataFrame用データ作成
-records = []
-for eval_id in sorted(question_data.keys()):
-    q = question_data[eval_id]
-    record = {
-        "EvaluationID": q["EvaluationID"],
-        "QuestionNumber": q["QuestionNumber"],
-        "RSID": q["RSID"]
-    }
+        for model in models:
+            model_data = data["evaluation"].get(model, {})
+            total = 0
+            for criterion in criteria_keys:
+                crit_data = model_data.get(criterion, {})
+                score = int(crit_data.get("score", 0))
+                total += score
+                row[f"{model}_{criterion}"] = score
+                row[f"{model}_{criterion}_reason_ja"] = crit_data.get("reason_ja", "")
+                row[f"{model}_{criterion}_reason_en"] = crit_data.get("reason_en", "")
+            
+            # 正しい GitHub ディレクトリ構造に従ってハイパーリンクを生成
+            if model == "ChatTogoVar":
+                url = f"{base_url}/chat_togovar/{question_no}/{rs_id_full}.md"
+            elif model == "GPT4o":
+                url = f"{base_url}/gpt-4o/{question_no}/{rs_id_full}.md"
+            elif model == "VarChat":
+                url = f"{base_url}/varchat/{rs_id_full}.md"
+            else:
+                url = ""
 
-    model_info = q["ModelInfo"]
+            row[f"{model}_Total"] = f'=HYPERLINK("{url}", "{total}")'
+            total_scores[model] = total
 
-    # 各モデルの合計スコアを記録 & TopModel 判定用
-    totals = {}
+        best_model = max(total_scores, key=total_scores.get)
+        row["BestAnswer"] = best_model
+
+        rows.append(row)
+
+    df = pd.DataFrame(rows)
+
+    # 列順を指定
+    prefix = ["ID", "Question", "rsID", "BestAnswer",
+            "ChatTogoVar_Total", "GPT4o_Total", "VarChat_Total"]
+    other_cols = [col for col in df.columns if col not in prefix]
+    df = df[prefix + sorted(other_cols)]
+    return df
+
+def calculate_category_averages(df):
+    records = []
     for model in models:
-        total = model_info.get(model, {}).get("Total", 0)
-        record[f"{model}_Total"] = total
-        totals[model] = total
-
-    # トップスコアモデルを記録
-    top_model = max(totals.items(), key=lambda x: x[1])[0]
-    record["TopModel"] = top_model
-
-    # 各モデルのスコア詳細
-    for model in models:
-        scores = model_info.get(model, {}).get("Scores", {})
         for criterion in criteria_keys:
-            record[f"{model}_{criterion}"] = scores.get(criterion)
+            col = f"{model}_{criterion}"
+            if col in df.columns:
+                records.append({
+                    "Model": model,
+                    "Criterion": criterion,
+                    "Average Score": df[col].mean()
+                })
+    return pd.DataFrame(records)
 
-    # 各モデルの理由
-    for model in models:
-        record[f"{model}_Reason"] = model_info.get(model, {}).get("Reason", "")
+def calculate_win_rates(df):
+    counts = df["BestAnswer"].value_counts().reindex(models, fill_value=0)
+    return pd.DataFrame({
+        "Model": counts.index,
+        "Wins": counts.values,
+        "Win Rate (%)": (counts.values / len(df) * 100).round(2)
+    })
 
-    records.append(record)
+def save_to_excel(df, category_df, winrate_df, path):
+    with pd.ExcelWriter(path, engine="xlsxwriter") as writer:
+        # メイン評価シート
+        df.to_excel(writer, sheet_name="Evaluation", index=False)
 
-# DataFrame化
-df = pd.DataFrame(records)
+        # カテゴリ平均シート + グラフ
+        category_df.to_excel(writer, sheet_name="Category Averages", index=False)
+        workbook  = writer.book
+        worksheet = writer.sheets["Category Averages"]
 
-# 列順の定義
-cols = ["EvaluationID", "QuestionNumber", "RSID", "TopModel"]
-cols += [f"{model}_Total" for model in models]
-for model in models:
-    for criterion in criteria_keys:
-        cols.append(f"{model}_{criterion}")
-for model in models:
-    cols.append(f"{model}_Reason")
+        chart = workbook.add_chart({'type': 'column'})
+        for model in models:
+            model_rows = category_df[category_df["Model"] == model]
+            if not model_rows.empty:
+                row_start = model_rows.index[0] + 1
+                row_end = model_rows.index[-1] + 1
+                chart.add_series({
+                    'name':       model,
+                    'categories': ['Category Averages', row_start, 1, row_end, 1],
+                    'values':     ['Category Averages', row_start, 2, row_end, 2],
+                })
 
-df = df[cols]
+        chart.set_title({'name': 'Average Scores per Category'})
+        chart.set_x_axis({'name': 'Criterion'})
+        chart.set_y_axis({'name': 'Average Score'})
+        chart.set_style(11)
+        worksheet.insert_chart('E2', chart)
 
-# 出力
-output_excel = "./evaluation/human/questionwise_detailed_scores.xlsx"
-output_json = "./evaluation/human/questionwise_detailed_scores.json"
+        # 勝率シート
+        winrate_df.to_excel(writer, sheet_name="Win Rates", index=False)
 
-df.to_excel(output_excel, index=False)
-df.to_json(output_json, orient="records", force_ascii=False, indent=4)
+    print(f"✅ Excelファイルを出力しました: {path}")
 
-print("出力完了:")
-print(f"- Excel: {output_excel}")
-print(f"- JSON : {output_json}")
+def main():
+    df = parse_evaluations()
+    df = df.sort_values(by="ID")  # ← ID列で昇順ソート
+    category_df = calculate_category_averages(df)
+    winrate_df = calculate_win_rates(df)
+    save_to_excel(df, category_df, winrate_df, output_file)
+
+if __name__ == "__main__":
+    main()
