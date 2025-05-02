@@ -1,0 +1,59 @@
+{
+  "qY": "q41",
+  "rsXXXX": "rs121913529.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "8"
+      },
+      "Completeness": {
+        "score": "2",
+        "reason_ja": "問題の意味を勘違いしている"
+      },
+      "Logical Consistency": {
+        "score": "6"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "4"
+      }
+    },
+    "GPT4o": {
+      "Completeness": {
+        "score": "2"
+      },
+      "Logical Consistency": {
+        "score": "6"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "4"
+      },
+      "Accuracy": {
+        "score": "2",
+        "reason_ja": "バリアントと遺伝子の紐付けが間違っている"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "7"
+      },
+      "Completeness": {
+        "score": "1"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "3"
+      }
+    }
+  }
+}
