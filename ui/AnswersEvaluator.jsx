@@ -70,7 +70,7 @@ export default function AnswersEvaluator() {
       const { data } = await octokit.repos.getContent({
         owner: 'mitsuhashi',
         repo: 'chat-togovar',
-        path: 'evaluation/human/sampled_100.json'
+        path: 'evaluation/human/sampled_150.json'
       });
       const content = base64ToUtf8(data.content);
       const samples = JSON.parse(content);
@@ -78,7 +78,7 @@ export default function AnswersEvaluator() {
       setFilePairs(pairs);
       setMessage(`✅ Sampled pairs loaded: ${pairs.length}件`);
     } catch (err) {
-      setMessage(`❌ Failed to load sampled_100.json: ${err.message}`);
+      setMessage(`❌ Failed to load sampled_150.json: ${err.message}`);
     }
   };
 
