@@ -1,0 +1,59 @@
+{
+  "qY": "q2",
+  "rsXXXX": "rs796052984.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "5",
+        "reason_ja": "GRCh37のロケーションはdbSNPには存在するが、なぜTogoVarが提供してないのか？"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "7"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "0",
+        "reason_ja": "完全に間違っている"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "4"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "0"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "5"
+      },
+      "Completeness": {
+        "score": "1"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    }
+  }
+}
