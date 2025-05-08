@@ -1,0 +1,58 @@
+{
+  "qY": "q10",
+  "rsXXXX": "rs1170153450.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "10"
+      },
+      "Completeness": {
+        "score": "10"
+      },
+      "Logical Consistency": {
+        "score": "10"
+      },
+      "Clarity and Conciseness": {
+        "score": "10"
+      },
+      "Evidence Support": {
+        "score": "10"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "0",
+        "reason_ja": "バリアントレベルで正確な情報を取得するのはほとんど無理"
+      },
+      "Completeness": {
+        "score": "3"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "0"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "8"
+      },
+      "Completeness": {
+        "score": "2"
+      },
+      "Logical Consistency": {
+        "score": "6"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "8"
+      }
+    }
+  }
+}
