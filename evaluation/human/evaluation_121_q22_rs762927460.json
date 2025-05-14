@@ -4,7 +4,8 @@
   "evaluation": {
     "ChatTogoVar": {
       "Accuracy": {
-        "score": "8"
+        "score": "8",
+        "reason_ja": "最新の臨床研究結果などはVarChatが強い"
       },
       "Completeness": {
         "score": "8"
