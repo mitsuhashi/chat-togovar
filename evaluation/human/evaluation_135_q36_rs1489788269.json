@@ -1,0 +1,58 @@
+{
+  "qY": "q36",
+  "rsXXXX": "rs1489788269.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9"
+      },
+      "Completeness": {
+        "score": "6",
+        "reason_ja": "バリアントに関するより詳しい情報（進化的な情報など）があると、より面白くなる"
+      },
+      "Logical Consistency": {
+        "score": "8"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "6"
+      },
+      "Completeness": {
+        "score": "4"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "7"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "9"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "8"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    }
+  }
+}
