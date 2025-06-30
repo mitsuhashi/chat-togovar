@@ -86,14 +86,12 @@ for question_no, question_statement_template in questions.items():
                     if model_block_match:
                         model_block = model_block_match.group(1)
                         for category in categories:
-                            cat_short = category.replace(' ', '').replace('-', '')
                             score_pattern = rf"- {re.escape(category)} Score: (\d+)/10"
                             score_match = re.search(score_pattern, model_block)
-                            file_data[f"{model}_{cat_short}"] = int(score_match.group(1)) if score_match else None
+                            file_data[f"{model}_{category}"] = int(score_match.group(1)) if score_match else None
                     else:
                         for category in categories:
-                            cat_short = category.replace(' ', '').replace('-', '')
-                            file_data[f"{model}_{cat_short}"] = None
+                            file_data[f"{model}_{category}"] = None
 
                 new_data = pd.DataFrame([file_data])
                 df = pd.concat([df, new_data], ignore_index=True)
@@ -106,8 +104,7 @@ if "Filename_Link" in df.columns:
 score_cols = ["ChatTogoVar", "GPT-4o", "VarChat"]
 for model in models:
     for category in categories:
-        cat_short = category.replace(' ', '').replace('-', '')
-        score_cols.append(f"{model}_{cat_short}")
+        score_cols.append(f"{model}_{category}")
 
 for col in score_cols:
     if col in df.columns:
@@ -154,8 +151,7 @@ with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
     # カテゴリスコア列に色付け＋列幅狭め
     for model in models:
         for category in categories:
-            cat_short = category.replace(' ', '').replace('-', '')
-            col_name = f"{model}_{cat_short}"
+            col_name = f"{model}_{category}"
             if col_name in df.columns:
                 col_idx = df.columns.get_loc(col_name) + 1
                 color = category_colors[category]
