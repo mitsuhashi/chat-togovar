@@ -135,12 +135,43 @@ def save_to_excel(df, category_df, winrate_df, path):
 
     print(f"✅ Excelファイルを出力しました: {path}")
 
+# --- JSON出力 ---
+def clean_and_save_to_json(df, output_dir="./evaluation/human", filename="aggregate_human.json"):
+    os.makedirs(output_dir, exist_ok=True)
+    output_path_json = os.path.join(output_dir, filename)
+
+    # *_Total 列の HYPERLINK(...) → 数値 へ変換
+    for col in df.columns:
+        if col.endswith("_Total"):
+            df[col] = df[col].apply(lambda x: int(re.search(r'"(\d+)"', x).group(1)) if isinstance(x, str) and "HYPERLINK" in x else x)
+
+    # "GPT4o" → "GPT-4o" に列名変更
+    for col in df.columns:
+        if col.startswith("GPT4o"):
+            df = df.rename(columns={col: col.replace("GPT4o", "GPT-4o")})
+
+    # *_reason_ja と *_reason_en の列を削除
+    reason_cols = [col for col in df.columns if col.endswith("_reason_ja") or col.endswith("_reason_en")]
+    df_cleaned = df.drop(columns=reason_cols)
+
+    # "Question" → "QuestionNumber" に列名変更
+    if "Question" in df_cleaned.columns:
+        df_cleaned = df_cleaned.rename(columns={"Question": "QuestionNumber"})
+
+    # 保存
+    try:
+        df_cleaned.to_json(output_path_json, orient="records", force_ascii=False, indent=4)
+        print(f"✅ {output_path_json} に保存しました。")
+    except Exception as e:
+        print(f"❌ JSON保存中にエラーが発生しました: {e}")
+
 def main():
     df = parse_evaluations()
     df = df.sort_values(by="ID")  # ← ID列で昇順ソート
     category_df = calculate_category_averages(df)
     winrate_df = calculate_win_rates(df)
     save_to_excel(df, category_df, winrate_df, output_file)
+    clean_and_save_to_json(df)
 
 if __name__ == "__main__":
     main()
