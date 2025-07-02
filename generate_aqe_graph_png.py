@@ -160,20 +160,17 @@ def save_category_avg_total_score_plot(summary_g):
 
     ax.set_yticks([p + bar_height for p in y])
     ax.set_yticklabels(y_labels)
-    ax.set_xlabel("Average Total Score")
+    ax.set_xlabel("Mean Total Score")
     ax.set_xlim(0, 50)
-    ax.set_title("Average Total Score by Category")
+    ax.set_title("Mean Total Score per Question Category (LLM Evaluation)")
     ax.legend(loc="upper left", bbox_to_anchor=(1.0, 1.0))
     plt.tight_layout()
     ax.invert_yaxis()
 
-    outpath = os.path.join(output_dir, "average_total_score_by_category.png")
+    outpath = os.path.join(output_dir, "mean_total_score_per_question_category_for_llm_evaluation.png")
     plt.savefig(outpath)
     plt.close()
     print(f"📊 Saved horizontal category-level average score plot: {outpath}")
 
 # === 実行 ===
-#save_all_graphs(summary_q, "by_question", "QuestionNumber")
-#save_all_graphs(summary_g, "by_group", "QuestionGroup")
-#save_all_questions_grouped_plot(df)
 save_category_avg_total_score_plot(summary_g)
