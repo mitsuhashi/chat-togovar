@@ -42,8 +42,7 @@ def parse_markdown_file(filepath, question_no, question_template):
     record = {
         "QuestionNumber": question_no,
         "Question": question_template.format(rs=rs),
-        "Filename_Text": f"{rs}.md",
-        "Filename_Link": f"{github_base_url_evaluation}/q{question_no}/{rs}.md"
+        "Filename_Text": f"{rs}.md"
     }
 
     for key, pattern in score_patterns.items():
