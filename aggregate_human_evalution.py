@@ -107,22 +107,23 @@ def save_to_excel(df, category_df, winrate_df, path):
         # メイン評価シート
         df.to_excel(writer, sheet_name="Evaluation", index=False)
 
-        # カテゴリ平均シート + グラフ
-        category_df.to_excel(writer, sheet_name="Category Averages", index=False)
-        workbook  = writer.book
+        # カテゴリ平均シート: Criterionを行、Modelを列にピボット
+        pivot_df = category_df.pivot(index="Criterion", columns="Model", values="Average Score")
+        pivot_df.to_excel(writer, sheet_name="Category Averages")
+
+        workbook = writer.book
         worksheet = writer.sheets["Category Averages"]
 
+        # グラフの作成
         chart = workbook.add_chart({'type': 'column'})
-        for model in models:
-            model_rows = category_df[category_df["Model"] == model]
-            if not model_rows.empty:
-                row_start = model_rows.index[0] + 1
-                row_end = model_rows.index[-1] + 1
-                chart.add_series({
-                    'name':       model,
-                    'categories': ['Category Averages', row_start, 1, row_end, 1],
-                    'values':     ['Category Averages', row_start, 2, row_end, 2],
-                })
+
+        # モデルごとに series を追加
+        for i, model in enumerate(models):
+            chart.add_series({
+                'name':       model,
+                'categories': ['Category Averages', 1, 0, len(pivot_df), 0],
+                'values':     ['Category Averages', 1, i + 1, len(pivot_df), i + 1],
+            })
 
         chart.set_title({'name': 'Average Scores per Category'})
         chart.set_x_axis({'name': 'Criterion'})
