@@ -6,7 +6,7 @@ import json5
 import pandas as pd
 from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
-from openpyxl import load_workbook
+from openpyxl.chart import BarChart, Reference
 
 # 設定
 directory_path = "./evaluation/gpt-4o"
@@ -71,8 +71,20 @@ def calculate_win_rates(df):
         "Win Rate (%)": (counts.values / len(df) * 100).round(2)
     })
 
-def export_to_excel(df, winrate_df, output_path):
+def calculate_category_averages(df):
+    records = []
+    for criterion in categories:
+        record = {"Criterion": criterion}
+        for model in models:
+            col = f"{model}_{criterion}"
+            if col in df.columns:
+                record[model] = df[col].mean()
+        records.append(record)
+    return pd.DataFrame(records)
+
+def export_to_excel(df, winrate_df, category_df, output_path):
     with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+        # メインシート
         df.to_excel(writer, sheet_name="Sheet1", index=False)
         workbook = writer.book
         sheet = workbook["Sheet1"]
@@ -86,10 +98,11 @@ def export_to_excel(df, winrate_df, output_path):
             sheet.cell(row=row, column=df.columns.get_loc("Filename_Text") + 1).style = "Hyperlink"
 
             for model in models:
-                model_col = df.columns.get_loc(model) + 1
-                model_url = f"{model_link_bases[model]}/{q_no}/{filename}" if model != "VarChat" else f"{model_link_bases[model]}/{filename}"
-                sheet.cell(row=row, column=model_col).hyperlink = model_url
-                sheet.cell(row=row, column=model_col).style = "Hyperlink"
+                model_col = df.columns.get_loc(model) + 1 if model in df.columns else None
+                if model_col:
+                    model_url = f"{model_link_bases[model]}/{q_no}/{filename}" if model != "VarChat" else f"{model_link_bases[model]}/{filename}"
+                    sheet.cell(row=row, column=model_col).hyperlink = model_url
+                    sheet.cell(row=row, column=model_col).style = "Hyperlink"
 
         for model in models:
             for cat in categories:
@@ -101,7 +114,25 @@ def export_to_excel(df, winrate_df, output_path):
                         sheet.cell(row=row, column=col_idx).fill = fill
                     sheet.column_dimensions[get_column_letter(col_idx)].width = 5
 
+        # 勝率シート
         winrate_df.to_excel(writer, sheet_name="Win Rates", index=False)
+
+        # カテゴリ平均シート
+        category_df.to_excel(writer, sheet_name="Category Averages", index=False)
+        chart_sheet = writer.sheets["Category Averages"]
+
+        chart = BarChart()
+        chart.title = "Average Scores per Category"
+        chart.x_axis.title = "Criterion"
+        chart.y_axis.title = "Average Score"
+        chart.style = 11
+
+        data = Reference(chart_sheet, min_col=2, max_col=1 + len(models),
+                        min_row=1, max_row=1 + len(category_df))
+        cats = Reference(chart_sheet, min_col=1, min_row=2, max_row=1 + len(category_df))
+        chart.add_data(data, titles_from_data=True)
+        chart.set_categories(cats)
+        chart_sheet.add_chart(chart, "E2")
 
 def export_to_json(df, path):
     df.to_json(path, orient="records", force_ascii=False, indent=4)
@@ -120,16 +151,15 @@ def main():
                 rec = parse_markdown_file(filepath, q_no, template)
                 df = pd.concat([df, pd.DataFrame([rec])], ignore_index=True)
 
-    # 型変換と勝率
     for col in df.columns:
         if any(model in col for model in models):
             df[col] = pd.to_numeric(df[col], errors='coerce').astype("Int64")
 
     winrate_df = calculate_win_rates(df)
+    category_df = calculate_category_averages(df)
 
-    # 出力
     output_xlsx = os.path.join(directory_path, "aggregate_aqes.xlsx")
-    export_to_excel(df, winrate_df, output_xlsx)
+    export_to_excel(df, winrate_df, category_df, output_xlsx)
 
     output_json = os.path.join(directory_path, "aggregate_aqes.json")
     export_to_json(df, output_json)
