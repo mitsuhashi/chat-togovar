@@ -21,7 +21,8 @@
     },
     "GPT4o": {
       "Accuracy": {
-        "score": "3"
+        "score": "3",
+        "reason_ja": "遺伝子が間違っている"
       },
       "Completeness": {
         "score": "7"
@@ -38,10 +39,12 @@
     },
     "VarChat": {
       "Accuracy": {
-        "score": "5"
+        "score": "8",
+        "reason_ja": "表示されている情報は正しい"
       },
       "Completeness": {
-        "score": "7"
+        "score": "7",
+        "reason_ja": "具体的なDBはあまり示されていない"
       },
       "Logical Consistency": {
         "score": "7"
