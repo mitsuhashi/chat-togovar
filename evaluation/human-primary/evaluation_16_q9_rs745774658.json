@@ -1,0 +1,61 @@
+{
+  "qY": "q9",
+  "rsXXXX": "rs745774658.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "8",
+        "reason_ja": "情報は正しいが、エビデンスとなるソースへのリンクが充実すると良い"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "1",
+        "reason_ja": "情報が正確ではない"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1",
+        "reason_ja": "エビデンスがない"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "2",
+        "reason_ja": "アレル頻度はない"
+      },
+      "Completeness": {
+        "score": "1"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    }
+  }
+}

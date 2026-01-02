@@ -1,0 +1,58 @@
+{
+  "qY": "q15",
+  "rsXXXX": "rs762927460.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "正確なデータが推論の実施に有効な例"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "9"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "2"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "3"
+      },
+      "Completeness": {
+        "score": "3"
+      },
+      "Logical Consistency": {
+        "score": "3"
+      },
+      "Clarity and Conciseness": {
+        "score": "3"
+      },
+      "Evidence Support": {
+        "score": "3"
+      }
+    }
+  }
+}

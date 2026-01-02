@@ -1,0 +1,59 @@
+{
+  "qY": "q45",
+  "rsXXXX": "rs80356821.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "8"
+      },
+      "Completeness": {
+        "score": "2"
+      },
+      "Logical Consistency": {
+        "score": "2",
+        "reason_ja": "問題の意味を理解し、再度TogoVarにAPIでアクセスして、このバリアントを含む遺伝子の情報をとってくると、この手の問題に答えることができるかもしれない"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "7"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "0",
+        "reason_ja": "バリアントと遺伝子の紐付けを間違えることで、全ての回答が間違ってしまう"
+      },
+      "Completeness": {
+        "score": "2"
+      },
+      "Logical Consistency": {
+        "score": "4"
+      },
+      "Clarity and Conciseness": {
+        "score": "4"
+      },
+      "Evidence Support": {
+        "score": "1"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "6"
+      },
+      "Completeness": {
+        "score": "1"
+      },
+      "Logical Consistency": {
+        "score": "4"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "6"
+      }
+    }
+  }
+}

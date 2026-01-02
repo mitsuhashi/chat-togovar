@@ -1,0 +1,60 @@
+{
+  "qY": "q12",
+  "rsXXXX": "rs1057519999.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "10",
+        "reason_ja": ""
+      },
+      "Completeness": {
+        "score": "10"
+      },
+      "Logical Consistency": {
+        "score": "10"
+      },
+      "Clarity and Conciseness": {
+        "score": "10"
+      },
+      "Evidence Support": {
+        "score": "10",
+        "reason_ja": "TogoVarへのリンクより、gnomADなどのダイレクトなエビデンスの方がわかりやすい"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "2",
+        "reason_ja": "バリアントレベルでは正確性が低い"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "2"
+      },
+      "Completeness": {
+        "score": "3"
+      },
+      "Logical Consistency": {
+        "score": "3"
+      },
+      "Clarity and Conciseness": {
+        "score": "3"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    }
+  }
+}

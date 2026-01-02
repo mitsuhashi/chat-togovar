@@ -1,0 +1,60 @@
+{
+  "qY": "q10",
+  "rsXXXX": "rs727504136.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "score": "9"
+      },
+      "Completeness": {
+        "score": "9"
+      },
+      "Logical Consistency": {
+        "score": "9"
+      },
+      "Clarity and Conciseness": {
+        "score": "9"
+      },
+      "Evidence Support": {
+        "score": "7",
+        "reason_ja": "リンクがTogoVarではなく、なぜかdbSNP。リンク先は該当のバリアントだが"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "2",
+        "reason_ja": "情報が正しくないし、そのエビデンスが常にないので、基本的にアレル頻度などは信じることができない"
+      },
+      "Completeness": {
+        "score": "7"
+      },
+      "Logical Consistency": {
+        "score": "7"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "2",
+        "reason_ja": "アレル頻度は無理"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "5"
+      },
+      "Clarity and Conciseness": {
+        "score": "5"
+      },
+      "Evidence Support": {
+        "score": "2"
+      }
+    }
+  }
+}

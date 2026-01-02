@@ -1,0 +1,55 @@
+{
+  "qY": "q25",
+  "rsXXXX": "rs876660744.md",
+  "evaluation": {
+    "ChatTogoVar": {
+      "Accuracy": {
+        "reason_ja": "ここで指摘されてるCPICは利用できるデータベースなのか？",
+        "score": "7"
+      },
+      "Completeness": {
+        "score": "7"
+      },
+      "Logical Consistency": {
+        "score": "7"
+      },
+      "Clarity and Conciseness": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "7"
+      }
+    },
+    "GPT4o": {
+      "Accuracy": {
+        "score": "6"
+      },
+      "Completeness": {
+        "score": "4"
+      },
+      "Logical Consistency": {
+        "score": "6"
+      },
+      "Clarity and Conciseness": {
+        "score": "6"
+      },
+      "Evidence Support": {
+        "score": "4"
+      }
+    },
+    "VarChat": {
+      "Accuracy": {
+        "score": "7"
+      },
+      "Completeness": {
+        "score": "5"
+      },
+      "Logical Consistency": {
+        "score": "7"
+      },
+      "Evidence Support": {
+        "score": "5"
+      }
+    }
+  }
+}
