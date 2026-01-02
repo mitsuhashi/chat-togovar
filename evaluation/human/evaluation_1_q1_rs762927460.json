@@ -21,7 +21,7 @@
     },
     "GPT4o": {
       "Accuracy": {
-        "score": "2"
+        "score": "1"
       },
       "Completeness": {
         "score": "2"
@@ -41,7 +41,7 @@
         "score": "8"
       },
       "Completeness": {
-        "score": "7"
+        "score": "6"
       },
       "Logical Consistency": {
         "score": "8"
