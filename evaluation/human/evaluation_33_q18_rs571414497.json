@@ -17,7 +17,8 @@
         "score": "9"
       },
       "Evidence Support": {
-        "score": "9"
+        "score": "9",
+        "reason_ja": "ClinVarがないときにPolyphenの予測で結論をサポートしている"
       }
     },
     "GPT4o": {
@@ -38,6 +39,27 @@
         "score": "1"
       }
     },
-    "VarChat": {}
+    "VarChat": {
+      "Evidence Support": {
+        "score": "5",
+        "reason_ja": "１次で記入漏れ。ClinVarと文献情報がないときに他の情報がない。"
+      },
+      "Accuracy": {
+        "score": "9",
+        "reason_ja": "１次で記入漏れ。"
+      },
+      "Completeness": {
+        "score": "8",
+        "reason_ja": "１次で記入漏れ。"
+      },
+      "Logical Consistency": {
+        "score": "9",
+        "reason_ja": "１次で記入漏れ"
+      },
+      "Clarity and Conciseness": {
+        "score": "6",
+        "reason_ja": "１次で記入漏れ"
+      }
+    }
   }
 }
