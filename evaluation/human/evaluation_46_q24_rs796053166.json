@@ -42,7 +42,8 @@
         "score": "8"
       },
       "Completeness": {
-        "score": "5"
+        "score": "5",
+        "reason_ja": "薬剤応答に関する言及がない。"
       },
       "Logical Consistency": {
         "score": "8"
