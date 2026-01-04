@@ -39,10 +39,12 @@
     },
     "VarChat": {
       "Accuracy": {
-        "score": "5"
+        "score": "5",
+        "reason_ja": ""
       },
       "Completeness": {
-        "score": "5"
+        "score": "5",
+        "reason_ja": "GWASに全く言及していない"
       },
       "Logical Consistency": {
         "score": "5"
