@@ -4,8 +4,8 @@
   "evaluation": {
     "ChatTogoVar": {
       "Accuracy": {
-        "score": "10",
-        "reason_ja": ""
+        "score": "8",
+        "reason_ja": "European non-finishのデータが存在するので減点。全体の頻度は正しい。\nhttps://grch38.togovar.org/variant/tgv417540545"
       },
       "Completeness": {
         "score": "10"
