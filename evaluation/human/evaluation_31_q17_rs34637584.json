@@ -40,7 +40,8 @@
     },
     "VarChat": {
       "Accuracy": {
-        "score": "7"
+        "score": "7",
+        "reason_ja": "疾患との関係は答えているが、臨床的意義そのものを回答していないのでChatTogoVarより低いのは理解できる。"
       },
       "Completeness": {
         "score": "7"
